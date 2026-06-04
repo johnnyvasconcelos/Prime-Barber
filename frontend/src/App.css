@@ -1,0 +1,62 @@
+/* global settings */
+
+:root {
+  --white: #f8f8fb;
+  --red: #e65662;
+  --light: #dcddfc;
+  --dark: #10192b;
+  --gray: #757b90;
+  --light-gray: #e8e8f5;
+  --display: #5152ec;
+  --blue: #63699f;
+  --transition: 0.3s all ease-out;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/fonts/Montserrat-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/fonts/Montserrat-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/fonts/Montserrat-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/fonts/Montserrat-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* dashboard */
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.app {
+  display: flex;
+}
+
+/* responsive settings */
