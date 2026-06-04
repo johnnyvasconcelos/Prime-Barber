@@ -19,43 +19,48 @@ const Aside = () => {
         alt="Prime Barber White Logo"
         className="aside__logo"
       />
+      <img
+        src="/images/logo-mobile.webp"
+        alt="Prime Barber White Logo Mobile"
+        className="aside__logo-mobile"
+      />
       <div className="aside__container">
         {/* nav menu */}
         <nav className="aside__nav">
           <ul className="aside__menu">
             <li className="aside__item">
               <a href="#" className="aside__link aside__link--active">
-                <FaHome /> Início
+                <FaHome /> <span>Início</span>
               </a>
             </li>
             <li className="aside__item">
               <a href="#" className="aside__link">
-                <FaCalendarAlt /> Agenda
+                <FaCalendarAlt /> <span>Agenda</span>
               </a>
             </li>
             <li className="aside__item">
               <a href="#" className="aside__link">
-                <FaUsers /> Clientes
+                <FaUsers /> <span>Clientes</span>
               </a>
             </li>
             <li className="aside__item">
               <a href="#" className="aside__link">
-                <FaCut /> Serviços
+                <FaCut /> <span>Serviços</span>
               </a>
             </li>
             <li className="aside__item">
               <a href="#" className="aside__link">
-                <FaDollarSign /> Financeiro
+                <FaDollarSign /> <span>Financeiro</span>
               </a>
             </li>
             <li className="aside__item">
               <a href="#" className="aside__link">
-                <FaChartBar /> Relatório
+                <FaChartBar /> <span>Relatório</span>
               </a>
             </li>
             <li className="aside__item">
               <a href="#" className="aside__link">
-                <FaCog /> Configurações
+                <FaCog /> <span>Configurações</span>
               </a>
             </li>
           </ul>

@@ -1,8 +1,8 @@
 .aside__main {
   background-color: var(--dark);
-  max-width: 200px;
   min-height: 100svh;
   width: 20%;
+  max-width: 200px;
   overflow: hidden;
 
   .aside__container {
@@ -105,5 +105,57 @@
 
   .aside__logo {
     width: 100%;
+  }
+
+  .aside__logo-mobile {
+    display: none;
+    width: 100%;
+  }
+}
+
+/* responsive settings */
+
+@media (max-width: 990px) {
+  .aside__main {
+    width: 8%;
+    max-width: 70px;
+    min-width: 65px;
+
+    .aside__logo-mobile {
+      display: block;
+    }
+
+    .aside__logo {
+      display: none;
+    }
+
+    .aside__container {
+      position: sticky;
+
+      .aside__nav {
+        .aside__menu {
+          .aside__item {
+            .aside__link {
+              padding: 7px;
+              height: auto;
+            }
+
+            span {
+              display: none;
+            }
+          }
+
+          .aside__link svg {
+            font-size: 40px;
+            width: 20px;
+            height: 25px;
+          }
+        }
+      }
+
+      .aside__premium {
+        display: none;
+      }
+    }
   }
 }

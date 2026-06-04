@@ -2,6 +2,7 @@
 
 .content__main {
   width: 80%;
+  flex: 1;
   background-color: var(--white);
   min-height: 100svh;
 
