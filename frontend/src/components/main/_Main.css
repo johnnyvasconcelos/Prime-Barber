@@ -30,6 +30,7 @@
 
         svg {
           transform: translateY(3px);
+          cursor: pointer;
         }
 
         input {
@@ -47,6 +48,7 @@
       .content__notification {
         color: var(--blue);
         position: relative;
+        cursor: pointer;
 
         span {
           display: block;

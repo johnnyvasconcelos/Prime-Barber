@@ -1,4 +1,5 @@
-import "./Aside.css";
+import "./_Aside.css";
+import CloseMenu from "./CloseMenu";
 
 import {
   FaHome,
@@ -11,9 +12,11 @@ import {
   FaCrown,
 } from "react-icons/fa";
 
-const Aside = () => {
+const Aside = ({ menu, setMenu }) => {
   return (
-    <aside className="aside__main">
+    <aside
+      className={`${menu ? "aside__main aside__main--active" : "aside__main"}`}
+    >
       <img
         src="/images/logo.webp"
         alt="Prime Barber White Logo"
@@ -25,6 +28,7 @@ const Aside = () => {
         className="aside__logo-mobile"
       />
       <div className="aside__container">
+        <CloseMenu setMenu={setMenu} />
         {/* nav menu */}
         <nav className="aside__nav">
           <ul className="aside__menu">

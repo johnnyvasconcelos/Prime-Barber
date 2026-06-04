@@ -1,15 +1,17 @@
 import "./App.css";
+import { useState } from "react";
 
-import Aside from "./components/Aside.jsx";
-import Main from "./components/Main.jsx";
+import Aside from "./components/aside/Aside.jsx";
+import Main from "./components/main/Main.jsx";
 
 const App = () => {
+  const [menu, setMenu] = useState(false);
   return (
     <div className="app">
       {/* aside */}
-      <Aside />
+      <Aside menu={menu} setMenu={setMenu} />
       {/* main content */}
-      <Main />
+      <Main menu={menu} setMenu={setMenu} />
     </div>
   );
 };

@@ -4,6 +4,7 @@
   width: 20%;
   max-width: 200px;
   overflow: hidden;
+  transition: var(--transition);
 
   .aside__container {
     position: relative;
@@ -12,6 +13,26 @@
     margin: auto;
     padding: 15px;
     min-height: 80svh;
+
+    .aside__close {
+      position: fixed;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: var(--brown);
+      border: 1px solid var(--yellow);
+      color: var(--light);
+      font-size: 24px;
+      z-index: 120;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 15px;
+      cursor: pointer;
+    }
 
     .aside__menu {
       display: flex;
@@ -60,8 +81,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #423f34;
-        color: #eabf38;
+        background-color: var(--brown);
+        color: var(--yellow);
         margin: 0 auto 15px auto;
       }
 
@@ -113,6 +134,49 @@
   }
 }
 
+.aside__main--active {
+  width: 8%;
+  max-width: 70px;
+  min-width: 65px;
+
+  .aside__logo-mobile {
+    display: block;
+  }
+
+  .aside__logo {
+    display: none;
+  }
+
+  .aside__container {
+    position: sticky;
+
+    .aside__nav {
+      .aside__menu {
+        .aside__item {
+          .aside__link {
+            padding: 7px;
+            height: auto;
+          }
+
+          span {
+            display: none;
+          }
+        }
+
+        .aside__link svg {
+          font-size: 40px;
+          width: 20px;
+          height: 25px;
+        }
+      }
+    }
+  }
+
+  .aside__premium {
+    display: none;
+  }
+}
+
 /* responsive settings */
 
 @media (max-width: 990px) {
@@ -155,6 +219,62 @@
 
       .aside__premium {
         display: none;
+      }
+    }
+  }
+
+  .aside__main--active {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100%;
+    z-index: 100;
+
+    .aside__logo-mobile {
+      display: none;
+    }
+
+    .aside__logo {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  .aside__main--active {
+    overflow: hidden;
+
+    .aside__logo {
+      object-fit: cover;
+      max-height: 120px;
+    }
+
+    .aside__container {
+      .aside__close {
+        display: flex;
+      }
+
+      .aside__nav {
+        .aside__menu {
+          margin-top: 20px;
+          .aside__link svg {
+            font-size: 408px;
+            width: 35px;
+            height: 28px;
+          }
+          .aside__item {
+            .aside__link {
+              padding: 10px;
+              height: auto;
+            }
+
+            span {
+              display: block;
+            }
+          }
+        }
       }
     }
   }
