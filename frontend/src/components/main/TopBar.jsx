@@ -1,5 +1,12 @@
-import { FaBars, FaSearch, FaChevronDown, FaBell } from "react-icons/fa";
-const TopBar = ({ menu, setMenu }) => {
+import {
+  FaBars,
+  FaSearch,
+  FaChevronDown,
+  FaBell,
+  FaCog,
+  FaDoorOpen,
+} from "react-icons/fa";
+const TopBar = ({ menu, setMenu, userMenu, setUserMenu }) => {
   return (
     <nav className="content__nav">
       <div className="content__container">
@@ -24,13 +31,34 @@ const TopBar = ({ menu, setMenu }) => {
             <FaBell />
             <span>0</span>
           </div>
-          <div className="content__user">
+          <div
+            className="content__user"
+            onClick={() => {
+              setUserMenu(!userMenu);
+            }}
+          >
             <img src="/images/user.webp" alt="User" />
             <div>
               <strong>Convidado</strong>
               <p>Admnin</p>
             </div>
             <FaChevronDown />
+            <ul
+              className={
+                userMenu
+                  ? "content__menu"
+                  : "content__menu content__menu--active"
+              }
+            >
+              <li>
+                <FaCog />
+                <a href="#"> Configurações</a>
+              </li>
+              <li>
+                <FaDoorOpen />
+                <a href="#"> Sair</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

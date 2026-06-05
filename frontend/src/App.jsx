@@ -6,12 +6,18 @@ import Main from "./components/main/Main.jsx";
 
 const App = () => {
   const [menu, setMenu] = useState(false);
+  const [userMenu, setUserMenu] = useState(false);
   return (
     <div className="app">
       {/* aside */}
       <Aside menu={menu} setMenu={setMenu} />
       {/* main content */}
-      <Main menu={menu} setMenu={setMenu} />
+      <Main
+        userMenu={userMenu}
+        setUserMenu={setUserMenu}
+        menu={menu}
+        setMenu={setMenu}
+      />
     </div>
   );
 };
