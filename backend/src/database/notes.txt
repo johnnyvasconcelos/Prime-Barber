@@ -1,0 +1,16 @@
+# Organizando DB:
+
+
+DB Prime_Barber
+
+# Tabela de agendamentos:
+ - index (numero), data (data), atendido (true, false), faturamento (numero)
+
+# Tabela de usuarios:
+ - index (numero), nome (string), senha (string)
+
+# Tabela de Clientes
+ - index (numero), nome (string), whatsapp (numero), corte
+
+# Tabela de Cortes
+ - index (numero), nome (string), preco (numero)

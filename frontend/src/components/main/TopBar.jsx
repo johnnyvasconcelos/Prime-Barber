@@ -46,8 +46,8 @@ const TopBar = ({ menu, setMenu, userMenu, setUserMenu }) => {
             <ul
               className={
                 userMenu
-                  ? "content__menu"
-                  : "content__menu content__menu--active"
+                  ? "content__menu content__menu--active"
+                  : "content__menu"
               }
             >
               <li>

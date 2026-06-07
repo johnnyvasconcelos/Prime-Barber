@@ -203,7 +203,14 @@
 
             span {
               font-weight: 700;
+            }
+
+            .green {
               color: #1eb444;
+            }
+
+            .red {
+              color: #ca2121;
             }
           }
         }
