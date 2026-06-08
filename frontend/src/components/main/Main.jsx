@@ -1,6 +1,7 @@
 import TopBar from "./TopBar";
 import MainHeader from "./MainHeader";
 import Info from "./Info";
+import Services from "./Services";
 import "./_Main.css";
 
 const Main = ({ menu, setMenu, userMenu, setUserMenu }) => {
@@ -14,6 +15,7 @@ const Main = ({ menu, setMenu, userMenu, setUserMenu }) => {
       />
       <MainHeader />
       <Info />
+      <Services />
     </main>
   );
 };

@@ -245,6 +245,45 @@
       }
     }
   }
+
+  .content__performand {
+    .content__dat {
+      tr {
+        &:nth-of-type(1) {
+          td:nth-of-type(1) {
+            background-color: #5758ed;
+          }
+        }
+
+        &:nth-of-type(2) {
+          td:nth-of-type(1) {
+            background-color: #2f80ed;
+          }
+        }
+
+        &:nth-of-type(3) {
+          td:nth-of-type(1) {
+            background-color: #27ae60;
+          }
+        }
+
+        &:nth-of-type(4) {
+          td:nth-of-type(1) {
+            background-color: #959292;
+          }
+        }
+        td {
+          padding: 0 6px;
+          color: var(--dark);
+          &:nth-of-type(1) {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 1100px) {
