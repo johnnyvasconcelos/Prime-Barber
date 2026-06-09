@@ -72,63 +72,88 @@ const Services = () => {
   return (
     <section className="content__services">
       <div className="content__container">
-        <div className="content__revenue">
-          <LineChart width={500} height={300} data={dadosParaGrafico}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="dia" />
-            <YAxis tickFormatter={(valor) => `R$ ${valor}`} />
-            <Tooltip formatter={(valor) => [`R$ ${valor}`, "Faturamento"]} />
-            <Line
-              type="monotone"
-              dataKey="faturamento"
-              strokeWidth={3}
-              stroke="#5758ed"
-            />
-          </LineChart>
+        <div className="content__first">
+          <div className="content__revenue">
+            <h3 className="h3">
+              <strong>Faturamento</strong> (últimos 7 dias)
+            </h3>
+            <LineChart width={"100%"} height={300} data={dadosParaGrafico}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="dia" />
+              <YAxis tickFormatter={(valor) => `R$ ${valor}`} />
+              <Tooltip formatter={(valor) => [`R$ ${valor}`, "Faturamento"]} />
+              <Line
+                type="monotone"
+                dataKey="faturamento"
+                strokeWidth={3}
+                stroke="#5758ed"
+              />
+            </LineChart>
+          </div>
         </div>
-        <div
-          className="content__performand"
-          style={{ width: "100%", height: 300 }}
-        >
-          <ResponsiveContainer>
-            <PieChart>
-              <Tooltip formatter={(value) => `${obterPorcentagem(value)}%`} />
-              <Pie
-                data={dadosPizza}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={80}
-                paddingAngle={2}
-              >
-                {dadosPizza.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-          <table className="content__dat">
-            <tr title="Corte Simples">
-              <td></td> <td>Corte Simples</td>
-              <td>{obterPorcentagem(dadosPizza[0].value)}%</td>
-            </tr>
-            <tr title="Corte + Barba">
-              <td></td> <td>Corte + Barba</td>
-              <td>{obterPorcentagem(dadosPizza[1].value)}%</td>
-            </tr>
-            <tr title="Barba">
-              <td></td> <td>Barba</td>
-              <td>{obterPorcentagem(dadosPizza[2].value)}%</td>
-            </tr>
-            <tr title="Outros">
-              <td></td> <td>Outros</td>
-              <td>{obterPorcentagem(dadosPizza[3].value)}%</td>
-            </tr>
-          </table>
+        <div className="content__second">
+          <div
+            className="content__performand"
+            style={{ width: "100%", height: 300 }}
+          >
+            <h3 className="h3">
+              <strong>Serviços mais Realizados:</strong>
+            </h3>
+            <div className="content__pizza">
+              <div className="content__chart">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Tooltip
+                      formatter={(value) => `${obterPorcentagem(value)}%`}
+                    />
+                    <Pie
+                      data={dadosPizza}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={80}
+                      paddingAngle={2}
+                    >
+                      {dadosPizza.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+
+              <table className="content__dat">
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td>Corte Simples</td>
+                    <td>{obterPorcentagem(dadosPizza[0].value)}%</td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Corte + Barba</td>
+                    <td>{obterPorcentagem(dadosPizza[1].value)}%</td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Barba</td>
+                    <td>{obterPorcentagem(dadosPizza[2].value)}%</td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Outros</td>
+                    <td>{obterPorcentagem(dadosPizza[3].value)}%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-        <div className="content__nex"></div>
       </div>
     </section>
   );
