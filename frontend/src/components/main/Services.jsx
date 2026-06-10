@@ -97,7 +97,7 @@ const Services = () => {
             style={{ width: "100%", height: 300 }}
           >
             <h3 className="h3">
-              <strong>Serviços mais Realizados:</strong>
+              <strong>Serviços mais Realizados</strong>
             </h3>
             <div className="content__pizza">
               <div className="content__chart">

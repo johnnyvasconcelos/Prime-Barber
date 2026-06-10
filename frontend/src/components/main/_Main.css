@@ -259,7 +259,7 @@
   }
 
   .content__services {
-    margin-top: 50px;
+    margin-top: 20px;
     .content__container {
       display: flex;
       .content__second {
@@ -330,6 +330,93 @@
       }
     }
   }
+
+  .content__apointments {
+    padding-bottom: 30px;
+    .content__container {
+      display: flex;
+      gap: 30px;
+      .content__clients {
+        width: 65%;
+
+        .content__table {
+          width: 100%;
+
+          tr {
+            th {
+              font-size: 12px;
+              color: var(--gray);
+              font-weight: 400;
+              padding: 10px;
+            }
+
+            td {
+              font-size: 12px;
+              color: var(--dark);
+              font-weight: 300;
+              padding: 12px;
+            }
+
+            .confirmed {
+              color: #ca2121;
+              font-weight: 700;
+            }
+
+            .pending {
+              color: #9e751c;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+
+      .content__financial {
+        width: 35%;
+
+        .content__table {
+          width: 100%;
+
+          tr {
+            th {
+              font-size: 12px;
+              color: var(--gray);
+              font-weight: 400;
+              padding: 10px;
+            }
+
+            td {
+              font-size: 12px;
+              color: var(--dark);
+              font-weight: 300;
+              padding: 12px;
+            }
+
+            .today {
+              color: #1db455;
+              font-weight: 700;
+            }
+          }
+        }
+
+        a {
+          margin-top: 20px;
+          background-color: #5352ee;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 12px;
+          color: var(--white);
+          font-weight: 700;
+          border-radius: 5px;
+          transition: var(--transition);
+
+          &:hover {
+            background-color: #3131bb;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 1100px) {
@@ -352,6 +439,33 @@
 
         .content__second {
           width: 45%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 990px) {
+  .content__apointments {
+    gap: 10px;
+
+    .content__container {
+      flex-direction: column;
+      width: 100%;
+      overflow-x: hidden;
+
+      .content__clients {
+        width: 100% !important;
+
+        .content__area {
+          width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+
+          .content__table {
+            min-width: 800px;
+            width: 100%;
+          }
         }
       }
     }
@@ -386,7 +500,6 @@
     }
   }
 }
-
 @media (max-width: 767px) {
   .content__main {
     .content__nav {
@@ -410,6 +523,7 @@
     }
 
     .content__services {
+      margin-top: 10px;
       .content__container {
         .content__first {
           .content__revenue {
@@ -418,6 +532,14 @@
               margin-bottom: 20px;
             }
           }
+        }
+      }
+    }
+
+    .content__apointments {
+      .content__container {
+        .content__financial {
+          width: 100% !important;
         }
       }
     }
@@ -446,6 +568,10 @@
           }
         }
       }
+    }
+
+    .content__apointments {
+      padding-bottom: 25px;
     }
   }
 }
