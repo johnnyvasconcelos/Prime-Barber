@@ -1,5 +1,6 @@
 import "./_Aside.css";
 import CloseMenu from "./CloseMenu";
+import { Link } from "react-router-dom";
 
 import {
   FaHome,
@@ -12,7 +13,7 @@ import {
   FaCrown,
 } from "react-icons/fa";
 
-const Aside = ({ menu, setMenu }) => {
+const Aside = ({ menu, setMenu, active }) => {
   return (
     <aside
       className={`${menu ? "aside__main aside__main--active" : "aside__main"}`}
@@ -33,37 +34,58 @@ const Aside = ({ menu, setMenu }) => {
         <nav className="aside__nav">
           <ul className="aside__menu">
             <li className="aside__item">
-              <a href="#" className="aside__link aside__link--active">
-                <FaHome /> <span>Início</span>
-              </a>
+              <Link
+                to="/"
+                className={`${active === "home" ? "aside__link aside__link--active" : "aside__link"}`}
+              >
+                <FaHome /> <span>Home</span>
+              </Link>
             </li>
             <li className="aside__item">
-              <a href="#" className="aside__link">
+              <a
+                href="#"
+                className={`${active === "agenda" ? "aside__link aside__link--active" : "aside__link"}`}
+              >
                 <FaCalendarAlt /> <span>Agenda</span>
               </a>
             </li>
             <li className="aside__item">
-              <a href="#" className="aside__link">
+              <Link
+                to="/clientes"
+                className={`${active === "clientes" ? "aside__link aside__link--active" : "aside__link"}`}
+              >
                 <FaUsers /> <span>Clientes</span>
-              </a>
+              </Link>
             </li>
             <li className="aside__item">
-              <a href="#" className="aside__link">
+              <a
+                href="#"
+                className={`${active === "servicos" ? "aside__link aside__link--active" : "aside__link"}`}
+              >
                 <FaCut /> <span>Serviços</span>
               </a>
             </li>
             <li className="aside__item">
-              <a href="#" className="aside__link">
+              <a
+                href="#"
+                className={`${active === "financeiro" ? "aside__link aside__link--active" : "aside__link"}`}
+              >
                 <FaDollarSign /> <span>Financeiro</span>
               </a>
             </li>
             <li className="aside__item">
-              <a href="#" className="aside__link">
+              <a
+                href="#"
+                className={`${active === "relatorio" ? "aside__link aside__link--active" : "aside__link"}`}
+              >
                 <FaChartBar /> <span>Relatório</span>
               </a>
             </li>
             <li className="aside__item">
-              <a href="#" className="aside__link">
+              <a
+                href="#"
+                className={`${active === "configuracoes" ? "aside__link aside__link--active" : "aside__link"}`}
+              >
                 <FaCog /> <span>Configurações</span>
               </a>
             </li>

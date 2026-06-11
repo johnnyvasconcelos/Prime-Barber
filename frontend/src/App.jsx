@@ -1,24 +1,16 @@
 import "./App.css";
-import { useState } from "react";
-
-import Aside from "./components/aside/Aside.jsx";
-import Main from "./components/main/Main.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Clients from "./pages/Clients";
 
 const App = () => {
-  const [menu, setMenu] = useState(false);
-  const [userMenu, setUserMenu] = useState(false);
   return (
-    <div className="app">
-      {/* aside */}
-      <Aside menu={menu} setMenu={setMenu} />
-      {/* main content */}
-      <Main
-        userMenu={userMenu}
-        setUserMenu={setUserMenu}
-        menu={menu}
-        setMenu={setMenu}
-      />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/clientes" element={<Clients />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

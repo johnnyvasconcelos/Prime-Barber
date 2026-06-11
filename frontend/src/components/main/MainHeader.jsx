@@ -1,9 +1,9 @@
-const MainHeader = () => {
+const MainHeader = ({ title, subtitle }) => {
   return (
     <header className="content__header">
       <div className="content__container">
-        <h1>Dashboard</h1>
-        <p>Olá, Lino! Veja o resumo da sua barbearia hoje!</p>
+        <h1>{title}</h1>
+        <p>{subtitle}</p>
       </div>
     </header>
   );

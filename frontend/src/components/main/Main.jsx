@@ -14,7 +14,10 @@ const Main = ({ menu, setMenu, userMenu, setUserMenu }) => {
         userMenu={userMenu}
         setUserMenu={setUserMenu}
       />
-      <MainHeader />
+      <MainHeader
+        title="Dashboard"
+        subtitle="Olá, Lino! Veja o resumo da sua barbearia hoje!"
+      />
       <Info />
       <Services />
       <Apointments />
