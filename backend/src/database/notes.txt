@@ -4,7 +4,7 @@
 DB Prime_Barber
 
 # Tabela de agendamentos:
- - index (numero), data (data), atendido (true, false), faturamento (numero)
+ - index (numero), data (data), horário (hora), atendido (true, false), faturamento (numero), cliente (string), profissional (string)
 
 # Tabela de usuarios:
  - index (numero), nome (string), senha (string)
