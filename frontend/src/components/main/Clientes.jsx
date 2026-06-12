@@ -27,11 +27,14 @@ const Clientes = () => {
       }
 
       const dado = dadosFiltrados[i];
+      const apenasData = dado.data.split("T")[0];
+      const [ano, mes, dia] = apenasData.split("-");
+      const dataFormatada = `${dia}/${mes}/${ano}`;
       dadosTabela.push(
         <tr key={dado.id}>
           <td>{dado.cliente}</td>
           <td>{dado.nome_servico}</td>
-          <td>{dado.data}</td>
+          <td>{dataFormatada}</td>
           <td>{dado.faturamento}</td>
         </tr>,
       );
