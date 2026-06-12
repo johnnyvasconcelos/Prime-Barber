@@ -133,16 +133,92 @@ a {
   top: 0;
   left: 0;
   z-index: 300;
-
   background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
 
   .form-modal {
     background-color: var(--white);
-    padding: 20px;
+    padding: 40px;
     border-radius: 14px;
     position: relative;
+    position: relative;
+
+    h2 {
+      font-size: 28px;
+      color: #151829;
+      margin-bottom: 10px;
+    }
+
+    > p {
+      color: #5b617a;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .close {
+      color: #767676;
+      font-size: 25px;
+      font-weight: 300;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      cursor: pointer;
+    }
+
+    label {
+      font-weight: 600;
+      color: #202139;
+      font-size: 16px;
+      display: block;
+      margin-bottom: 15px;
+      margin-top: 30px;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #c1c1c7;
+      border-radius: 5px;
+
+      &::placeholder {
+        font-size: 15px;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .buttons {
+      margin-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+
+      button {
+        border-radius: 5px;
+        font-weight: 700;
+        width: 100%;
+        display: block;
+        padding: 10px;
+        cursor: pointer;
+        color: var(--display);
+        border: none;
+        font-size: 17px;
+      }
+
+      button:nth-of-type(2) {
+        color: var(--white);
+        background-color: var(--display);
+        transition: var(--transition);
+
+        &:hover {
+          background-color: #3131bb;
+        }
+      }
+    }
   }
 }
 
@@ -157,6 +233,35 @@ a {
     .content__table {
       min-width: 800px;
       width: 100%;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .background-modal {
+    .form-modal {
+      padding: 22px;
+      margin: 0 auto;
+      width: 85%;
+      max-width: 450px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .background-modal {
+    .form-modal {
+      h2 {
+        font-size: 22px;
+      }
+
+      > p {
+        font-size: 12px;
+      }
+
+      button {
+        font-size: 14px !important;
+      }
     }
   }
 }

@@ -12,7 +12,7 @@ const MainServices = ({ menu, setMenu, userMenu, setUserMenu }) => {
         userMenu={userMenu}
         setUserMenu={setUserMenu}
       />
-      <MainHeader title="Services" subtitle="Lista de serviços!" />
+      <MainHeader title="Serviços" subtitle="Lista de serviços!" />
       <Services />
     </main>
   );

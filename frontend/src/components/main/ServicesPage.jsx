@@ -62,16 +62,27 @@ const ServicesPage = () => {
       </div>
       {/* formulário modal */}
       {modal && (
-        <div className="background-modal">
-          <form className="form-modal">
-            <FaTimes className="close"
+        <div
+          className="background-modal"
+          onClick={() => {
+            setModal(false);
+          }}
+        >
+          <form
+            className="form-modal"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <FaTimes
+              className="close"
               onClick={() => {
                 setModal(false);
               }}
             />
             <h2>Adicionar Serviço</h2>
             <p>Preencha os dados para adicionar um novo serviço.</p>
-
+            <br />
             <label htmlFor="nome">Nome do serviço</label>
             <input
               type="text"
@@ -89,8 +100,17 @@ const ServicesPage = () => {
               step="0.01"
               min="0"
             />
-
-            <button type="submit">Adicionar Serviço</button>
+            <div className="buttons">
+              <button
+                type="button"
+                onClick={() => {
+                  setModal(false);
+                }}
+              >
+                Cancelar
+              </button>
+              <button type="submit">Adicionar Serviço</button>
+            </div>
           </form>
         </div>
       )}
