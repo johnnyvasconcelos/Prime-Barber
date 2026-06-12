@@ -17,6 +17,15 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/servicos", async (req, res) => {
+  try {
+    const [dados] = await DB.query("SELECT * FROM cortes");
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor PORTA: ${PORT}`);
 });

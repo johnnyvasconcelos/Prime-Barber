@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 const Services = () => {
   const [dados, setDados] = useState([]);
   useEffect(() => {
-    fetch("http://192.168.1.4:3500/")
+    fetch("http://192.168.1.2:3500/")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setDados(dados);

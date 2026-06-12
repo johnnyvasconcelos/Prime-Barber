@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+
 const Clientes = () => {
   const [dados, setDados] = useState([]);
   const [limite, setLimite] = useState(5);
 
   useEffect(() => {
-    fetch("http://192.168.1.4:3500/")
+    fetch("http://192.168.1.2:3500/")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setDados(dados);

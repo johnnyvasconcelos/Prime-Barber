@@ -58,12 +58,12 @@ const Aside = ({ menu, setMenu, active }) => {
               </Link>
             </li>
             <li className="aside__item">
-              <a
-                href="#"
+              <Link
+                to="/servicos"
                 className={`${active === "servicos" ? "aside__link aside__link--active" : "aside__link"}`}
               >
                 <FaCut /> <span>Serviços</span>
-              </a>
+              </Link>
             </li>
             <li className="aside__item">
               <a
