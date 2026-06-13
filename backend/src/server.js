@@ -26,6 +26,15 @@ app.get("/servicos", async (req, res) => {
   }
 });
 
+app.get("/servicos/item", async (req, res) => {
+  try {
+    const [dados] = await DB.query("INSERT INTO cortes VALUES (?)");
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor PORTA: ${PORT}`);
 });

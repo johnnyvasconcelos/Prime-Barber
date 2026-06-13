@@ -4,6 +4,7 @@ import { FaEdit, FaTrash, FaCut, FaTimes } from "react-icons/fa";
 const ServicesPage = () => {
   const [modal, setModal] = useState(false);
   const [dados, setDados] = useState([]);
+  const [nome, setNome] = useState("");
   useEffect(() => {
     fetch("http://192.168.1.2:3500/servicos")
       .then((resposta) => resposta.json())
@@ -12,6 +13,27 @@ const ServicesPage = () => {
       })
       .catch((error) => console.error(error));
   }, []);
+
+  async function enviar(e) {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3500/servicos/item", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nome }),
+      });
+
+      if (!response.ok) {
+        alert("Erro ao enviar.");
+      } else {
+        setNome("");
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+    }
+  }
 
   const dadosTabela = [];
 
@@ -73,6 +95,7 @@ const ServicesPage = () => {
             onClick={(e) => {
               e.stopPropagation();
             }}
+            onSubmit={enviar}
           >
             <FaTimes
               className="close"
@@ -89,6 +112,7 @@ const ServicesPage = () => {
               name="nome"
               id="nome"
               placeholder="Ex.: Corte Simples"
+              onChange={(e) => setNome(e.target.value)}
             />
 
             <label htmlFor="preco">Preço</label>
