@@ -6,6 +6,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors());
+// app.use(express.json());
 const PORT = process.env.PORT || 3500;
 
 app.get("/", async (req, res) => {
@@ -28,7 +29,33 @@ app.get("/servicos", async (req, res) => {
 
 app.get("/servicos/item", async (req, res) => {
   try {
-    const [dados] = await DB.query("INSERT INTO cortes VALUES (?)");
+    const [dados] = await DB.query(
+      "INSERT INTO cortes (nome, preco) VALUES (?, ?)",
+      [req.query.nome, req.query.preco],
+    );
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.get("/servicos/deletar", async (req, res) => {
+  try {
+    const [dados] = await DB.query("DELETE FROM cortes WHERE id = ?", [
+      req.query.id,
+    ]);
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.get("/servicos/editar", async (req, res) => {
+  try {
+    const [dados] = await DB.query(
+      "UPDATE cortes SET nome = ?, preco = ? WHERE id = ?",
+      [req.query.nome, req.query.preco, req.query.id],
+    );
     res.json(dados);
   } catch (error) {
     console.error(error.message);

@@ -5,30 +5,35 @@ const ServicesPage = () => {
   const [modal, setModal] = useState(false);
   const [dados, setDados] = useState([]);
   const [nome, setNome] = useState("");
-  useEffect(() => {
+  const [preco, setPreco] = useState("");
+  const [editaId, setEditaId] = useState(null);
+
+  const carregar = () => {
     fetch("http://192.168.1.2:3500/servicos")
       .then((resposta) => resposta.json())
       .then((dados2) => {
         setDados(dados2);
       })
       .catch((error) => console.error(error));
+  };
+
+  useEffect(() => {
+    carregar();
   }, []);
 
-  async function enviar(e) {
-    e.preventDefault();
+  async function enviar() {
     try {
-      const response = await fetch("http://localhost:3500/servicos/item", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ nome }),
-      });
+      const url = editaId
+        ? `http://192.168.1.2:3500/servicos/editar?id=${editaId}&nome=${nome}&preco=${preco}`
+        : `http://192.168.1.2:3500/servicos/item?nome=${nome}&preco=${preco}`;
+
+      const response = await fetch(url);
 
       if (!response.ok) {
-        alert("Erro ao enviar.");
+        alert("Erro ao salvar.");
       } else {
-        setNome("");
+        fechaModal();
+        carregar();
       }
     } catch (error) {
       console.error("Erro na requisição:", error);
@@ -37,18 +42,49 @@ const ServicesPage = () => {
 
   const dadosTabela = [];
 
+  async function remover(id) {
+    if (confirm("Remover o serviço?")) {
+      try {
+        const response = await fetch(
+          `http://192.168.1.2:3500/servicos/deletar?id=${id}`,
+        );
+        if (response.ok) {
+          carregar();
+        } else {
+          alert("Erro ao remover.");
+        }
+      } catch (error) {
+        console.error("Erro ao remover:", error);
+      }
+    }
+  }
+
+  function editar(servico) {
+    setEditaId(servico.id);
+    setNome(servico.nome);
+    setPreco(servico.preco);
+    setModal(true);
+  }
+
+  function fechaModal() {
+    setModal(false);
+    setEditaId(null);
+    setNome("");
+    setPreco("");
+  }
+
   if (dados.length > 0) {
     for (let i = 0; i < dados.length; i++) {
       dadosTabela.push(
         <tr key={dados[i].id}>
           <td>{dados[i].nome}</td>
           <td>R$ {dados[i].preco}</td>
-          <td className="editar btn">
+          <td className="editar btn" onClick={() => editar(dados[i])}>
             <span>
               <FaEdit />
             </span>
           </td>
-          <td className="remover btn">
+          <td className="remover btn" onClick={() => remover(dados[i].id)}>
             <span>
               <FaTrash />
             </span>
@@ -87,7 +123,7 @@ const ServicesPage = () => {
         <div
           className="background-modal"
           onClick={() => {
-            setModal(false);
+            fechaModal();
           }}
         >
           <form
@@ -100,17 +136,22 @@ const ServicesPage = () => {
             <FaTimes
               className="close"
               onClick={() => {
-                setModal(false);
+                fechaModal();
               }}
             />
-            <h2>Adicionar Serviço</h2>
-            <p>Preencha os dados para adicionar um novo serviço.</p>
+            <h2>{editaId ? "Editar Serviço" : "Adicionar Serviço"}</h2>
+            <p>
+              {editaId
+                ? "Edite o serviço abaixo."
+                : "Preencha os dados para adicionar um novo serviço."}
+            </p>
             <br />
             <label htmlFor="nome">Nome do serviço</label>
             <input
               type="text"
               name="nome"
               id="nome"
+              value={nome}
               placeholder="Ex.: Corte Simples"
               onChange={(e) => setNome(e.target.value)}
             />
@@ -120,7 +161,9 @@ const ServicesPage = () => {
               type="number"
               name="preco"
               id="preco"
+              value={preco}
               placeholder="Ex.: 49,90"
+              onChange={(e) => setPreco(e.target.value)}
               step="0.01"
               min="0"
             />
@@ -128,12 +171,14 @@ const ServicesPage = () => {
               <button
                 type="button"
                 onClick={() => {
-                  setModal(false);
+                  fechaModal();
                 }}
               >
                 Cancelar
               </button>
-              <button type="submit">Adicionar Serviço</button>
+              <button type="submit">
+                {editaId ? "Salvar Alterações" : "Adicionar Serviço"}
+              </button>
             </div>
           </form>
         </div>
