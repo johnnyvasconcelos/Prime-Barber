@@ -66,12 +66,12 @@ const Aside = ({ menu, setMenu, active }) => {
               </Link>
             </li>
             <li className="aside__item">
-              <a
-                href="#"
+              <Link
+                to="/financeiro"
                 className={`${active === "financeiro" ? "aside__link aside__link--active" : "aside__link"}`}
               >
                 <FaDollarSign /> <span>Financeiro</span>
-              </a>
+              </Link>
             </li>
             <li className="aside__item">
               <a

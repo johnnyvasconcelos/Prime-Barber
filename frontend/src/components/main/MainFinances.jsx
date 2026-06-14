@@ -1,9 +1,10 @@
 import TopBar from "./TopBar";
-import Clientes from "./Clientes";
+import Finances from "./Finances";
 import MainHeader from "./MainHeader";
+import InfoFinances from "./InfoFinances";
 import "./_Main.css";
 
-const MainClients = ({ menu, setMenu, userMenu, setUserMenu }) => {
+const MainFinances = ({ menu, setMenu, userMenu, setUserMenu }) => {
   return (
     <main className="content__main">
       <TopBar
@@ -13,13 +14,13 @@ const MainClients = ({ menu, setMenu, userMenu, setUserMenu }) => {
         setUserMenu={setUserMenu}
       />
       <MainHeader
-        title="Clientes"
-        subtitle="Lista de clientes!"
-        button="cliente"
+        title="Financeiro"
+        subtitle="Contas bancárias e movimentações!"
       />
-      <Clientes />
+      <InfoFinances />
+      <Finances />
     </main>
   );
 };
 
-export default MainClients;
+export default MainFinances;
