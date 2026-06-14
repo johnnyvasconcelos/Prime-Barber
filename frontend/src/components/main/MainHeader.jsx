@@ -1,11 +1,14 @@
 import { FaPlus, FaTimes } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 const MainHeader = ({ title, subtitle, button }) => {
   const [addModal, setAddModal] = useState(false);
-  const [data, setData] = useState([]);
-  const [nomeDado, setNomeDado] = useState("");
-  const [Dado, setDado] = useState("");
-  const [id, setId] = useState(0);
+  const [...setData] = useState([]);
+
+  const [cliente, setCliente] = useState("");
+  const [nomeServico, setNomeServico] = useState("");
+  const [profissional, setProfissional] = useState("");
+  const [listaServicos, setListaServicos] = useState([]);
 
   const carregarDado = () => {
     fetch("http://192.168.1.2:3500/clientes")
@@ -16,9 +19,25 @@ const MainHeader = ({ title, subtitle, button }) => {
       .catch((error) => console.error(error));
   };
 
+  const carregarServicos = () => {
+    fetch("http://192.168.1.2:3500/servicos")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        setListaServicos(dados);
+        if (dados.length > 0) {
+          setNomeServico(dados[0].nome);
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  useEffect(() => {
+    carregarServicos();
+  }, []);
+
   async function enviarDado() {
     try {
-      const url = `http://192.168.1.2:3500/clientes/add?id=${id}&nome=${nomeDado}&dado=${Dado}`;
+      const url = `http://192.168.1.2:3500/clientes/cliente?cliente=${encodeURIComponent(cliente)}&nome_servico=${encodeURIComponent(nomeServico)}&profissional=${encodeURIComponent(profissional)}`;
 
       const response = await fetch(url);
 
@@ -26,12 +45,18 @@ const MainHeader = ({ title, subtitle, button }) => {
         alert("Erro ao adicionar.");
       } else {
         setAddModal(false);
+        setCliente("");
+        setProfissional("");
+        if (listaServicos.length > 0) setNomeServico(listaServicos[0].nome);
         carregarDado();
       }
     } catch (error) {
       console.error("Erro na requisição:", error);
     }
+
+    carregarDado();
   }
+
   return (
     <>
       <header className="content__header">
@@ -52,7 +77,7 @@ const MainHeader = ({ title, subtitle, button }) => {
           )}
         </div>
       </header>
-      {/* formulário modal */}
+
       {addModal && (
         <div
           className="background-modal"
@@ -76,24 +101,43 @@ const MainHeader = ({ title, subtitle, button }) => {
             <h2>Adicionar Cliente</h2>
             <p>Preencha os dados para adicionar um novo cliente.</p>
             <br />
+
             <label htmlFor="nome">Nome do cliente</label>
             <input
               type="text"
               name="nome"
               id="nome"
-              value={nomeDado}
+              value={cliente}
               placeholder="Ex.: Bastian Misawa"
-              onChange={(e) => setNomeDado(e.target.value)}
+              onChange={(e) => setCliente(e.target.value)}
+              required
             />
 
             <label htmlFor="corte">Corte</label>
             <select
               name="corte"
               id="corte"
-              onChange={(e) => setDado(e.target.value)}
+              value={nomeServico}
+              onChange={(e) => setNomeServico(e.target.value)}
             >
-              <option value="Corte Simples">Corte Simples</option>
+              {listaServicos.map((servico) => (
+                <option key={servico.id} value={servico.nome}>
+                  {servico.nome}
+                </option>
+              ))}
             </select>
+
+            <label htmlFor="profissional">Profissional</label>
+            <input
+              type="text"
+              name="profissional"
+              id="profissional"
+              value={profissional}
+              placeholder="Ex.: Alan"
+              onChange={(e) => setProfissional(e.target.value)}
+              required
+            />
+
             <div className="buttons">
               <button
                 type="button"

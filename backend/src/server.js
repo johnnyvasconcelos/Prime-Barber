@@ -18,6 +18,39 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/clientes", async (req, res) => {
+  try {
+    const [dados] = await DB.query("SELECT * FROM agendamentos");
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.get("/clientes/cliente", async (req, res) => {
+  try {
+    const { nome_servico, cliente, profissional } = req.query;
+
+    const [cortes] = await DB.query("SELECT preco FROM cortes WHERE nome = ?", [
+      nome_servico,
+    ]);
+
+    if (cortes.length === 0) {
+      return res.status(404).json({ error: "Serviço não encontrado" });
+    }
+
+    const preco = cortes[0].preco;
+
+    const [resultado] = await DB.query(
+      "INSERT INTO agendamentos (nome_servico, faturamento, cliente, profissional) VALUES (?, ?, ?, ?)",
+      [nome_servico, preco, cliente, profissional],
+    );
+    res.json(resultado);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.get("/servicos", async (req, res) => {
   try {
     const [dados] = await DB.query("SELECT * FROM cortes");
@@ -56,6 +89,15 @@ app.get("/servicos/editar", async (req, res) => {
       "UPDATE cortes SET nome = ?, preco = ? WHERE id = ?",
       [req.query.nome, req.query.preco, req.query.id],
     );
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.get("/barbearia", async (req, res) => {
+  try {
+    const [dados] = await DB.query("SELECT * FROM barbearia");
     res.json(dados);
   } catch (error) {
     console.error(error.message);

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const InfoFinances = () => {
   const [dados, setDados] = useState([]);
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/")
+    fetch("http://192.168.1.2:3500/barbearia")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setDados(dados);
@@ -20,20 +20,7 @@ const InfoFinances = () => {
           {/* agendamentos */}
           <div className="content__status">
             <h3>Saldo Atual</h3>
-            <strong>
-              {dados.length > 0
-                ? (() => {
-                    const ultimaData = dados.reduce((dado, atual) => {
-                      return new Date(atual.data) > new Date(dado.data)
-                        ? atual
-                        : dado;
-                    }, dados[0])?.data;
-                    return dados.filter(
-                      (agendamento) => agendamento.data === ultimaData,
-                    ).length;
-                  })()
-                : "0"}
-            </strong>
+            <strong>R$ {dados[0]?.saldo.replace(".", ",")}</strong>
             <p>Disponível para saque</p>
           </div>
         </article>
@@ -44,23 +31,7 @@ const InfoFinances = () => {
           {/* clientes */}
           <div className="content__status">
             <h3>Entradas (este mês)</h3>
-            <strong>
-              {dados.length > 0
-                ? (() => {
-                    const ultimaData = dados.reduce((dado, atual) => {
-                      return new Date(atual.data) > new Date(dado.data)
-                        ? atual
-                        : dado;
-                    }, dados[0])?.data;
-
-                    return dados.filter(
-                      (agendamento) =>
-                        agendamento.data === ultimaData &&
-                        agendamento.atendido == true,
-                    ).length;
-                  })()
-                : "0"}
-            </strong>
+            <strong>R$ {dados[0]?.entradas.replace(".", ",")}</strong>
             <p>
               {dados.length > 0
                 ? (() => {
@@ -134,24 +105,7 @@ const InfoFinances = () => {
           {/* faturamento diário */}
           <div className="content__status">
             <h3>Saídas (este mês)</h3>
-            <strong>
-              {dados.length > 0
-                ? (() => {
-                    const ultimaData = dados.reduce((recente, atual) => {
-                      return new Date(atual.data) > new Date(recente.data)
-                        ? atual
-                        : recente;
-                    }, dados[0])?.data;
-                    let sum = 0;
-                    for (let dadoX of dados) {
-                      if (dadoX.data === ultimaData) {
-                        sum += Number(dadoX.faturamento);
-                      }
-                    }
-                    return `R$ ${sum.toFixed(2).replace(".", ",")}`;
-                  })()
-                : "R$ 0,00"}
-            </strong>
+            <strong>R$ {dados[0]?.saidas.replace(".", ",")}</strong>
             <p>
               {dados.length > 0
                 ? (() => {
@@ -220,34 +174,7 @@ const InfoFinances = () => {
           {/* faturamento mensal */}
           <div className="content__status">
             <h3>Saldo total</h3>
-            <strong>
-              {dados.length > 0
-                ? (() => {
-                    const ultimaData = dados.reduce((recente, atual) => {
-                      return new Date(atual.data) > new Date(recente.data)
-                        ? atual
-                        : recente;
-                    }, dados[0])?.data;
-
-                    const data = new Date(ultimaData);
-                    const ano = data.getFullYear();
-                    const mes = data.getMonth();
-
-                    let sum = 0;
-                    for (let dadoX of dados) {
-                      const dataAtual = new Date(dadoX.data);
-                      if (
-                        dataAtual.getFullYear() === ano &&
-                        dataAtual.getMonth() === mes
-                      ) {
-                        sum += Number(dadoX.faturamento);
-                      }
-                    }
-
-                    return `R$ ${sum.toFixed(2).replace(".", ",")}`;
-                  })()
-                : "R$ 0,00"}
-            </strong>
+            <strong>R$ {dados[0]?.saldo.replace(".", ",")}</strong>
             <p>Total em todas as contas</p>
           </div>
         </article>

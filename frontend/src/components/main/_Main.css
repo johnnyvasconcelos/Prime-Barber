@@ -394,6 +394,40 @@
   .content__clients {
     padding-bottom: 35px;
   }
+
+  .content__finances {
+    .content__container {
+      .content__tabs {
+        .content__selects {
+          padding-top: 20px;
+          border-top: 1px solid #e3e3ec;
+          display: flex;
+          gap: 20px;
+          align-items: center;
+          margin-bottom: 25px;
+
+          .content__select {
+            color: #8c8da2;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            padding-bottom: 8px;
+            border-bottom: 2px solid transparent;
+
+            &:hover {
+              color: var(--display);
+            }
+          }
+
+          .content__select--active {
+            color: var(--display);
+            border-bottom: 2px solid var(--display);
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 1100px) {
