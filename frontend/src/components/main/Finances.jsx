@@ -1,3 +1,10 @@
+import {
+  FaEllipsisV,
+  FaPlus,
+  FaArrowDown,
+  FaPaypal,
+  FaUniversity,
+} from "react-icons/fa";
 import { useState } from "react";
 const Finances = () => {
   const [general, setGeneral] = useState(true);
@@ -56,9 +63,78 @@ const Finances = () => {
               <article className="content__tab">
                 <div>
                   <h3>Contas & Métodos Cadastrados</h3>
+                  <div className="content__banks">
+                    <div className="content__bank content__bank--bank">
+                      <span>
+                        <FaUniversity />
+                      </span>
+                      <p>
+                        <strong>Banco do Brasil</strong>
+                        <span>Agência 12345 &nbsp;●&nbsp; Conta 1234-5</span>
+                      </p>
+                      <div className="content__dots">
+                        <span class="verificado">Verificado</span>
+                        <FaEllipsisV />
+                      </div>
+                    </div>
+                    <div className="content__bank content__bank--paypal">
+                      <span>
+                        <FaPaypal />
+                      </span>
+                      <p>
+                        <strong>Banco do Brasil</strong>
+                        <span>Agência 12345 &nbsp;●&nbsp; Conta 1234-5</span>
+                      </p>
+                      <div className="content__dots">
+                        <span class="verificado">Verificado</span>
+                        <FaEllipsisV />
+                      </div>
+                    </div>
+                    <a href="#" className="add">
+                      <FaPlus /> Adicionar nova conta
+                    </a>
+                  </div>
                 </div>
                 <div>
                   <h3>Ações Rápidas</h3>
+                  <div className="content__grid">
+                    <div className="content__element">
+                      <span>
+                        <FaPlus />
+                      </span>
+                      <p>
+                        <strong>Adicionar Dinheiro</strong>
+                        <span>Adicionar fundos à sua conta</span>
+                      </p>
+                    </div>
+                    <div className="content__element">
+                      <span>
+                        <FaArrowDown />
+                      </span>
+                      <p>
+                        <strong>Retirar Dinheiro</strong>
+                        <span>Transferir para sua conta</span>
+                      </p>
+                    </div>
+                    <div className="content__element">
+                      <span>
+                        <FaUniversity />
+                      </span>
+                      <p>
+                        <strong>Cadastrar Banco</strong>
+                        <span>Adicionar conta bancária</span>
+                      </p>
+                    </div>
+                    <div className="content__element">
+                      <span>
+                        <FaPaypal />
+                      </span>
+                      <p>
+                        <strong>Cadastrar Paypal</strong>
+                        <span>Adicionar sua conta paypal</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </article>
             )}

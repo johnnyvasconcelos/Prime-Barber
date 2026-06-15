@@ -425,6 +425,90 @@
             border-bottom: 2px solid var(--display);
           }
         }
+
+        .content__tab {
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+
+          > div {
+            width: 50%;
+            padding: 0 25px;
+
+            h3 {
+              color: #070923;
+              font-size: 12px;
+              margin-bottom: 20px;
+            }
+
+            > div {
+              > div {
+                background-color: #fcf9d0;
+                display: flex;
+                gap: 12px;
+                align-items: center;
+
+                > span {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 45px;
+                  height: 45px;
+                  border-radius: 50%;
+                  background-color: lime;
+                  color: var(--white);
+                  font-size: 22px;
+                }
+
+                p {
+                  strong {
+                    display: block;
+                    color: #3f475b;
+                    font-size: 13px;
+                    margin-bottom: 2px;
+                  }
+
+                  span {
+                    color: #3f475b;
+                    font-size: 11px;
+                    white-space: nowrap;
+                  }
+                }
+              }
+            }
+
+            .content__banks {
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+
+              .content__bank {
+                .content__dots {
+                  width: 50%;
+                  float: right;
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  font-size: 12px;
+                  justify-content: flex-end;
+
+                  .verificado {
+                    background-color: #c7e1ce;
+                    color: #1db455;
+                    padding: 3px;
+                    border-radius: 5px;
+                    font-size: 10px;
+                    font-weight: 700;
+                  }
+
+                  svg {
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
