@@ -73,7 +73,7 @@ const Finances = () => {
                         <span>Agência 12345 &nbsp;●&nbsp; Conta 1234-5</span>
                       </p>
                       <div className="content__dots">
-                        <span class="verificado">Verificado</span>
+                        <span className="verificado">Verificado</span>
                         <FaEllipsisV />
                       </div>
                     </div>
@@ -86,7 +86,7 @@ const Finances = () => {
                         <span>Agência 12345 &nbsp;●&nbsp; Conta 1234-5</span>
                       </p>
                       <div className="content__dots">
-                        <span class="verificado">Verificado</span>
+                        <span className="verificado">Verificado</span>
                         <FaEllipsisV />
                       </div>
                     </div>
@@ -104,7 +104,7 @@ const Finances = () => {
                       </span>
                       <p>
                         <strong>Adicionar Dinheiro</strong>
-                        <span>Adicionar fundos à sua conta</span>
+                        <span>Adicionar fundos</span>
                       </p>
                     </div>
                     <div className="content__element">
