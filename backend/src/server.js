@@ -104,6 +104,24 @@ app.get("/barbearia", async (req, res) => {
   }
 });
 
+app.get("/bancos", async (req, res) => {
+  try {
+    const [dados] = await DB.query("SELECT * FROM bancos");
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.get("/paypal", async (req, res) => {
+  try {
+    const [dados] = await DB.query("SELECT * FROM paypal");
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor PORTA: ${PORT}`);
 });

@@ -5,11 +5,41 @@ import {
   FaPaypal,
   FaUniversity,
 } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const Finances = () => {
   const [general, setGeneral] = useState(true);
   const [services, setServices] = useState(false);
   const [historic, setHistoric] = useState(false);
+  const [banco, setBanco] = useState({
+    nome: "",
+    agencia: "",
+    conta: "",
+    verificado: false,
+  });
+  const [paypal, setPaypal] = useState({
+    email: "",
+    verificado: false,
+  });
+  useEffect(() => {
+    fetch("http://192.168.1.2:3500/bancos")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setBanco(dados[0]);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
+  useEffect(() => {
+    fetch("http://192.168.1.2:3500/paypal")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setPaypal(dados[0]);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
   return (
     <>
       <section className="content__finances">
@@ -65,28 +95,43 @@ const Finances = () => {
                   <h3>Contas & Métodos Cadastrados</h3>
                   <div className="content__banks">
                     <div className="content__bank content__bank--bank">
-                      <span>
+                      <span class="bank">
                         <FaUniversity />
                       </span>
                       <p>
-                        <strong>Banco do Brasil</strong>
-                        <span>Agência 12345 &nbsp;●&nbsp; Conta 1234-5</span>
+                        <strong>{banco.nome}</strong>
+                        <span>
+                          Ag. {banco.agencia} &nbsp;●&nbsp; <wbr />
+                          Conta {banco.conta}
+                        </span>
                       </p>
                       <div className="content__dots">
-                        <span className="verificado">Verificado</span>
+                        <span
+                          className={
+                            banco.verificado ? "verificado" : "analise"
+                          }
+                        >
+                          {banco.verificado ? "Verificado" : "Análise"}
+                        </span>
                         <FaEllipsisV />
                       </div>
                     </div>
                     <div className="content__bank content__bank--paypal">
-                      <span>
+                      <span class="paypal">
                         <FaPaypal />
                       </span>
                       <p>
-                        <strong>Banco do Brasil</strong>
-                        <span>Agência 12345 &nbsp;●&nbsp; Conta 1234-5</span>
+                        <strong>Paypal</strong>
+                        <span>{paypal.email}</span>
                       </p>
                       <div className="content__dots">
-                        <span className="verificado">Verificado</span>
+                        <span
+                          className={
+                            paypal.verificado ? "verificado" : "analise"
+                          }
+                        >
+                          Verificado
+                        </span>
                         <FaEllipsisV />
                       </div>
                     </div>
@@ -99,30 +144,39 @@ const Finances = () => {
                   <h3>Ações Rápidas</h3>
                   <div className="content__grid">
                     <div className="content__element">
-                      <span>
+                      <span class="add">
                         <FaPlus />
                       </span>
                       <p>
                         <strong>Adicionar Dinheiro</strong>
-                        <span>Adicionar fundos</span>
+                        <span>
+                          Adicionar <wbr />
+                          fundos
+                        </span>
                       </p>
                     </div>
                     <div className="content__element">
-                      <span>
+                      <span class="ret">
                         <FaArrowDown />
                       </span>
                       <p>
                         <strong>Retirar Dinheiro</strong>
-                        <span>Transferir para sua conta</span>
+                        <span>
+                          Transferir para <wbr />
+                          sua conta
+                        </span>
                       </p>
                     </div>
                     <div className="content__element">
-                      <span>
+                      <span class="build">
                         <FaUniversity />
                       </span>
                       <p>
                         <strong>Cadastrar Banco</strong>
-                        <span>Adicionar conta bancária</span>
+                        <span>
+                          Adicionar conta <wbr />
+                          bancária
+                        </span>
                       </p>
                     </div>
                     <div className="content__element">
@@ -131,7 +185,10 @@ const Finances = () => {
                       </span>
                       <p>
                         <strong>Cadastrar Paypal</strong>
-                        <span>Adicionar sua conta paypal</span>
+                        <span>
+                          Adicionar sua <wbr />
+                          conta paypal
+                        </span>
                       </p>
                     </div>
                   </div>

@@ -455,9 +455,27 @@
                   min-width: 45px;
                   min-height: 45px;
                   border-radius: 50%;
-                  background-color: lime;
                   color: var(--white);
+                  background-color: var(--display);
                   font-size: 22px;
+                }
+
+                .bank,
+                .paypal {
+                  color: var(--display);
+                  background-color: #d6e6fc;
+                }
+
+                .ret {
+                  background-color: #f58a1c;
+                }
+
+                .add {
+                  background-color: #49c376;
+                }
+
+                .build {
+                  background-color: #3a88ef;
                 }
 
                 p {
@@ -540,6 +558,15 @@
                     font-weight: 700;
                   }
 
+                  .analise {
+                    background-color: #e2dec6;
+                    color: #d8bd37;
+                    padding: 3px;
+                    border-radius: 5px;
+                    font-size: 10px;
+                    font-weight: 700;
+                  }
+
                   svg {
                     cursor: pointer;
                   }
@@ -615,6 +642,28 @@
       }
     }
   }
+
+  .content__finances {
+    .content__container {
+      .content__tabs {
+        .content__tab {
+          flex-direction: column;
+
+          > div {
+            width: 100% !important;
+
+            .content__banks {
+              & .content__bank {
+                .content__dots {
+                  width: 80% !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 823px) {
@@ -645,6 +694,7 @@
     }
   }
 }
+
 @media (max-width: 767px) {
   .content__main {
     .content__nav {
@@ -717,6 +767,33 @@
 
     .content__apointments {
       padding-bottom: 25px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .content__finances {
+    .content__container {
+      .content__tabs {
+        .content__tab {
+          > div {
+            .content__banks {
+              & .content__bank {
+                .content__dots {
+                  .verificado {
+                    display: none;
+                  }
+                }
+              }
+            }
+
+            .content__grid {
+              display: flex !important;
+              flex-direction: column !important;
+            }
+          }
+        }
+      }
     }
   }
 }
