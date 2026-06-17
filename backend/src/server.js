@@ -122,6 +122,29 @@ app.get("/paypal", async (req, res) => {
   }
 });
 
+app.get("/paypal/item", async (req, res) => {
+  try {
+    const [dados] = await DB.query("UPDATE paypal SET email = ? WHERE id = 1", [
+      req.query.email,
+    ]);
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.get("/banco/item", async (req, res) => {
+  try {
+    const [dados] = await DB.query(
+      "UPDATE bancos SET nome = ?, conta = ?, agencia = ? WHERE id = 1",
+      [req.query.nome, req.query.conta, req.query.agencia],
+    );
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor PORTA: ${PORT}`);
 });
