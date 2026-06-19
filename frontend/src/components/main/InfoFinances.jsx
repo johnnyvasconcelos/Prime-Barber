@@ -10,6 +10,32 @@ const InfoFinances = () => {
       })
       .catch((error) => console.error(error));
   }, []);
+  // pega o ticked médio da barbearia
+  const [agendamentos, setAgendamentos] = useState([]);
+  useEffect(() => {
+    fetch("http://192.168.1.2:3500/clientes")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setAgendamentos(dados);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  function getMedia() {
+    let valoresCalculo = 0;
+    let valoresMedia = [];
+
+    for (let agendamento of agendamentos) {
+      valoresMedia.push(agendamento.faturamento);
+      valoresCalculo += Number(agendamento.faturamento);
+    }
+
+    return (valoresCalculo / agendamentos.length)
+      .toFixed(2)
+      .replaceAll(".", ",");
+  }
   return (
     <section className="content__info">
       <div className="content__container">
@@ -174,7 +200,7 @@ const InfoFinances = () => {
           {/* faturamento mensal */}
           <div className="content__status">
             <h3>Ticket Médio</h3>
-            <strong>R$ {dados[0]?.saldo.replace(".", ",")}</strong>
+            <strong>R$ {getMedia()}</strong>
             <p>Média por atendimento</p>
           </div>
         </article>

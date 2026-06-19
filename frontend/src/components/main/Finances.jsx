@@ -27,6 +27,7 @@ const Finances = () => {
   const [dinheiroAdd, setDinheiroAdd] = useState(0);
   const [dinheiroWithdraw, setDinheiroWithdraw] = useState(0);
   const [dinheiroAtual, setDinheiroAtual] = useState(0);
+
   useEffect(() => {
     fetch("http://192.168.1.2:3500/dinheiro")
       .then((resposta) => resposta.json())
