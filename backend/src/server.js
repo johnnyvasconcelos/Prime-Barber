@@ -177,6 +177,35 @@ app.get("/paypal/deletar", async (req, res) => {
   }
 });
 
+app.get("/dinheiro", async (req, res) => {
+  try {
+    const [dados] = await DB.query("SELECT saldo FROM barbearia");
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.post("/dinheiro/adicionar", async (req, res) => {
+  try {
+    const quantidade = parseFloat(req.query.quantidade);
+    await DB.query("UPDATE barbearia SET saldo = saldo + ?", [quantidade]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.post("/dinheiro/retirar", async (req, res) => {
+  try {
+    const quantidade = parseFloat(req.query.quantidade);
+    await DB.query("UPDATE barbearia SET saldo = saldo - ?", [quantidade]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor PORTA: ${PORT}`);
 });

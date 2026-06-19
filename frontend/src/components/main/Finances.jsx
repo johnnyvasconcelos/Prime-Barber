@@ -22,6 +22,22 @@ const Finances = () => {
   const [agenciaBanco, setAgenciaBanco] = useState("");
   const [abreMenuzim1, setAbreMenuzim1] = useState(false);
   const [abreMenuzim2, setAbreMenuzim2] = useState(false);
+  const [addMoney, setAddMoney] = useState(false);
+  const [withdrawMoney, setWithdrawMoney] = useState(false);
+  const [dinheiroAdd, setDinheiroAdd] = useState(0);
+  const [dinheiroWithdraw, setDinheiroWithdraw] = useState(0);
+  const [dinheiroAtual, setDinheiroAtual] = useState(0);
+  useEffect(() => {
+    fetch("http://192.168.1.2:3500/dinheiro")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setDinheiroAtual(dados[0].saldo);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
+  console.log(dinheiroAtual);
   const [banco, setBanco] = useState({
     nome: "",
     agencia: "",
@@ -155,6 +171,38 @@ const Finances = () => {
   function carregaPagina() {
     CarregaAi();
     window.location.reload();
+  }
+
+  async function enviaGrana() {
+    try {
+      const url = `http://192.168.1.2:3500/dinheiro/adicionar?quantidade=${encodeURIComponent(dinheiroAdd)}`;
+      const response = await fetch(url, { method: "POST" });
+
+      if (!response.ok) {
+        alert("Erro ao adicionar dinheiro.");
+      } else {
+        setAddMoney(false);
+        showPop(false);
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+    }
+  }
+
+  async function retiraGrana() {
+    try {
+      const url = `http://192.168.1.2:3500/dinheiro/retirar?quantidade=${encodeURIComponent(dinheiroWithdraw)}`;
+      const response = await fetch(url, { method: "POST" });
+
+      if (!response.ok) {
+        alert("Erro ao retirar dinheiro.");
+      } else {
+        setWithdrawMoney(false);
+        showPop(false);
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+    }
   }
   return (
     <>
@@ -318,7 +366,13 @@ const Finances = () => {
                 <div>
                   <h3>Ações Rápidas</h3>
                   <div className="content__grid">
-                    <div className="content__element">
+                    <div
+                      className="content__element"
+                      onClick={() => {
+                        showPop(true);
+                        setAddMoney(true);
+                      }}
+                    >
                       <span className="add">
                         <FaPlus />
                       </span>
@@ -330,7 +384,13 @@ const Finances = () => {
                         </span>
                       </p>
                     </div>
-                    <div className="content__element">
+                    <div
+                      className="content__element"
+                      onClick={() => {
+                        showPop(true);
+                        setWithdrawMoney(true);
+                      }}
+                    >
                       <span className="ret">
                         <FaArrowDown />
                       </span>
@@ -547,6 +607,93 @@ const Finances = () => {
                   Cancelar
                 </button>
                 <button type="submit">Cadastrar</button>
+              </div>
+            </form>
+          )}
+          {addMoney && (
+            <form
+              className="form-modal"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              onSubmit={enviaGrana}
+            >
+              <FaTimes
+                className="close"
+                onClick={() => {
+                  showPop(false);
+                  setAddMoney(false);
+                }}
+              />
+              <h2>Adicionar Dinheiro</h2>
+              <p>Retirada da conta bancária ou paypal</p>
+              <br />
+              <label htmlFor="dinheiroAdd">Quantidade</label>
+              <input
+                type="number"
+                name="dinheiroAdd"
+                id="dinheiroAdd"
+                value={dinheiroAdd}
+                placeholder="Ex.: 100"
+                onChange={(e) => setDinheiroAdd(e.target.value)}
+                required
+              />
+
+              <div className="buttons">
+                <button
+                  type="button"
+                  onClick={() => {
+                    showPop(false);
+                    setAddMoney(false);
+                  }}
+                >
+                  Cancelar
+                </button>
+                <button type="submit">Adicionar</button>
+              </div>
+            </form>
+          )}
+
+          {withdrawMoney && (
+            <form
+              className="form-modal"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              onSubmit={retiraGrana}
+            >
+              <FaTimes
+                className="close"
+                onClick={() => {
+                  showPop(false);
+                  setWithdrawMoney(false);
+                }}
+              />
+              <h2>Retirar Dinheiro</h2>
+              <p>Adicionar para conta bancária ou paypal</p>
+              <br />
+              <label htmlFor="dinheiroWithdraw">Quantidade</label>
+              <input
+                type="number"
+                name="dinheiroWithdraw"
+                id="dinheiroWithdraw"
+                value={dinheiroWithdraw}
+                placeholder="Ex.: 100"
+                onChange={(e) => setDinheiroWithdraw(e.target.value)}
+                required
+              />
+
+              <div className="buttons">
+                <button
+                  type="button"
+                  onClick={() => {
+                    showPop(false);
+                    setWithdrawMoney(false);
+                  }}
+                >
+                  Cancelar
+                </button>
+                <button type="submit">Retirar</button>
               </div>
             </form>
           )}
