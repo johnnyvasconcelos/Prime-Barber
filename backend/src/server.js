@@ -124,8 +124,41 @@ app.get("/paypal", async (req, res) => {
 
 app.get("/paypal/item", async (req, res) => {
   try {
-    const [dados] = await DB.query("UPDATE paypal SET email = ? WHERE id = 1", [
-      req.query.email,
+    const [dados] = await DB.query(
+      "INSERT INTO paypal (id, email) VALUES (1, ?) ON DUPLICATE KEY UPDATE email = ?",
+      [req.query.email, req.query.email],
+    );
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/banco/item", async (req, res) => {
+  try {
+    const [dados] = await DB.query(
+      "INSERT INTO bancos (id, nome, conta, agencia) VALUES (1, ?, ?, ?) ON DUPLICATE KEY UPDATE nome = ?, conta = ?, agencia = ?",
+      [
+        req.query.nome,
+        req.query.conta,
+        req.query.agencia,
+        req.query.nome,
+        req.query.conta,
+        req.query.agencia,
+      ],
+    );
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/bancos/deletar", async (req, res) => {
+  try {
+    const [dados] = await DB.query("DELETE FROM bancos WHERE id = 1", [
+      req.query.id,
     ]);
     res.json(dados);
   } catch (error) {
@@ -133,12 +166,11 @@ app.get("/paypal/item", async (req, res) => {
   }
 });
 
-app.get("/banco/item", async (req, res) => {
+app.get("/paypal/deletar", async (req, res) => {
   try {
-    const [dados] = await DB.query(
-      "UPDATE bancos SET nome = ?, conta = ?, agencia = ? WHERE id = 1",
-      [req.query.nome, req.query.conta, req.query.agencia],
-    );
+    const [dados] = await DB.query("DELETE FROM paypal WHERE id = 1", [
+      req.query.id,
+    ]);
     res.json(dados);
   } catch (error) {
     console.error(error.message);

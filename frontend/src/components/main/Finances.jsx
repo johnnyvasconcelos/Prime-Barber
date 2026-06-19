@@ -3,6 +3,7 @@ import {
   FaPlus,
   FaArrowDown,
   FaPaypal,
+  FaTrash,
   FaUniversity,
   FaTimes,
 } from "react-icons/fa";
@@ -19,6 +20,8 @@ const Finances = () => {
   const [nomeBanco, setNomeBanco] = useState("");
   const [contaBanco, setContaBanco] = useState("");
   const [agenciaBanco, setAgenciaBanco] = useState("");
+  const [abreMenuzim1, setAbreMenuzim1] = useState(false);
+  const [abreMenuzim2, setAbreMenuzim2] = useState(false);
   const [banco, setBanco] = useState({
     nome: "",
     agencia: "",
@@ -63,11 +66,13 @@ const Finances = () => {
       } else {
         setPaypalForm(false);
         showPop(false);
+        buscarPaypal();
       }
     } catch (error) {
-      console.error("Erro na requisição:", error);
+      console.error("Erro:", error);
     }
     CarregaAi();
+    carregaPagina();
   }
   async function enviaBank() {
     try {
@@ -80,11 +85,76 @@ const Finances = () => {
       } else {
         setBankForm(false);
         showPop(false);
+        buscarBancos();
       }
     } catch (error) {
-      console.error("Erro na requisição:", error);
+      console.error("Erro:", error);
     }
+  }
+
+  async function deletaBank() {
+    try {
+      const response = await fetch("http://192.168.1.2:3500/bancos/deletar");
+
+      if (!response.ok) {
+        alert("Erro ao deletar.");
+      } else {
+        setBanco({
+          nome: "",
+          agencia: "",
+          conta: "",
+          verificado: false,
+        });
+        setAbreMenuzim1(false);
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+    }
+  }
+
+  const buscarBancos = () => {
+    fetch("http://192.168.1.2:3500/bancos")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setBanco(dados[0]);
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const buscarPaypal = () => {
+    fetch("http://192.168.1.2:3500/paypal")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setPaypal(dados[0]);
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  async function deletaPaypal() {
+    try {
+      const response = await fetch("http://192.168.1.2:3500/paypal/deletar");
+
+      if (!response.ok) {
+        alert("Erro ao deletar paypal.");
+      } else {
+        setPaypal({
+          email: "",
+          verificado: false,
+        });
+        setAbreMenuzim2(false);
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+    }
+  }
+
+  function carregaPagina() {
     CarregaAi();
+    window.location.reload();
   }
   return (
     <>
@@ -140,47 +210,99 @@ const Finances = () => {
                 <div>
                   <h3>Contas & Métodos Cadastrados</h3>
                   <div className="content__banks">
-                    <div className="content__bank content__bank--bank">
-                      <span class="bank">
-                        <FaUniversity />
-                      </span>
-                      <p>
-                        <strong>{banco.nome}</strong>
-                        <span>
-                          Ag. {banco.agencia} &nbsp;●&nbsp; <wbr />
-                          Conta {banco.conta}
+                    {banco.nome !== "" && (
+                      <div className="content__bank content__bank--bank">
+                        <span className="bank">
+                          <FaUniversity />
                         </span>
-                      </p>
-                      <div className="content__dots">
-                        <span
-                          className={
-                            banco.verificado ? "verificado" : "analise"
-                          }
-                        >
-                          {banco.verificado ? "Verificado" : "Análise"}
-                        </span>
-                        <FaEllipsisV />
+                        <p>
+                          <strong>{banco.nome}</strong>
+                          <span>
+                            Ag. {banco.agencia} &nbsp;●&nbsp; <wbr />
+                            Conta {banco.conta}
+                          </span>
+                        </p>
+                        <div className="content__dots">
+                          <span
+                            className={
+                              banco.verificado ? "verificado" : "analise"
+                            }
+                          >
+                            {banco.verificado ? "Verificado" : "Análise"}
+                          </span>
+                          <div
+                            className="dotBase"
+                            onClick={() => setAbreMenuzim1(!abreMenuzim1)}
+                          >
+                            <FaEllipsisV />
+                            <ul
+                              className={
+                                abreMenuzim1
+                                  ? "content__menu content__menu--active"
+                                  : "content__menu"
+                              }
+                            >
+                              <li>
+                                <FaTrash />
+                                &nbsp;
+                                <a
+                                  onClick={() => {
+                                    deletaBank();
+                                  }}
+                                >
+                                  Remover
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="content__bank content__bank--paypal">
-                      <span class="paypal">
-                        <FaPaypal />
-                      </span>
-                      <p>
-                        <strong>Paypal</strong>
-                        <span>{paypal.email}</span>
-                      </p>
-                      <div className="content__dots">
-                        <span
-                          className={
-                            paypal.verificado ? "verificado" : "analise"
-                          }
-                        >
-                          {paypal.verificado ? "Verificado" : "Análise"}
+                    )}
+                    {paypal.email && (
+                      <div className="content__bank content__bank--paypal">
+                        <span className="paypal">
+                          <FaPaypal />
                         </span>
-                        <FaEllipsisV />
+                        <p>
+                          <strong>Paypal</strong>
+                          <span>{paypal.email}</span>
+                        </p>
+                        <div className="content__dots">
+                          <span
+                            className={
+                              paypal.verificado ? "verificado" : "analise"
+                            }
+                          >
+                            {paypal.verificado ? "Verificado" : "Análise"}
+                          </span>
+                          <div
+                            className="dotBase"
+                            onClick={() => setAbreMenuzim2(!abreMenuzim2)}
+                          >
+                            <FaEllipsisV />
+                            <ul
+                              className={
+                                abreMenuzim2
+                                  ? "content__menu content__menu--active"
+                                  : "content__menu"
+                              }
+                            >
+                              <li>
+                                <FaTrash />
+                                &nbsp;
+                                <a
+                                  onClick={() => {
+                                    deletaPaypal();
+                                  }}
+                                >
+                                  Remover
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    )}
                     <a
                       href="#"
                       className="add"
@@ -197,7 +319,7 @@ const Finances = () => {
                   <h3>Ações Rápidas</h3>
                   <div className="content__grid">
                     <div className="content__element">
-                      <span class="add">
+                      <span className="add">
                         <FaPlus />
                       </span>
                       <p>
@@ -209,7 +331,7 @@ const Finances = () => {
                       </p>
                     </div>
                     <div className="content__element">
-                      <span class="ret">
+                      <span className="ret">
                         <FaArrowDown />
                       </span>
                       <p>
@@ -220,8 +342,14 @@ const Finances = () => {
                         </span>
                       </p>
                     </div>
-                    <div className="content__element">
-                      <span class="build">
+                    <div
+                      className="content__element"
+                      onClick={() => {
+                        showPop(true);
+                        setBankForm(true);
+                      }}
+                    >
+                      <span className="build">
                         <FaUniversity />
                       </span>
                       <p>
@@ -232,7 +360,13 @@ const Finances = () => {
                         </span>
                       </p>
                     </div>
-                    <div className="content__element">
+                    <div
+                      className="content__element"
+                      onClick={() => {
+                        showPop(true);
+                        setPaypalForm(true);
+                      }}
+                    >
                       <span>
                         <FaPaypal />
                       </span>

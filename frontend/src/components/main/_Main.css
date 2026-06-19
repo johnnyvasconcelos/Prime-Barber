@@ -103,47 +103,6 @@
         cursor: pointer;
         position: relative;
 
-        .content__menu {
-          position: absolute;
-          right: 0;
-          width: 140px;
-          background-color: var(--white);
-          border-radius: 5px;
-          border: 1px solid var(--light-gray);
-          bottom: -70px;
-          z-index: -1;
-          opacity: 0;
-          overflow: hidden;
-
-          li {
-            white-space: nowrap;
-            padding-left: 15px;
-            border-bottom: 1px solid var(--light-gray);
-
-            &:hover {
-              background-color: var(--display);
-
-              a,
-              svg {
-                color: var(--white);
-              }
-            }
-
-            a {
-              padding: 5px 10px 5px 4px;
-              display: inline-flex;
-              text-align: center;
-              font-size: 14px;
-              color: var(--gray);
-            }
-          }
-        }
-
-        .content__menu--active {
-          z-index: 100;
-          opacity: 1;
-        }
-
         svg {
           font-size: 10px;
         }

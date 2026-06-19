@@ -173,9 +173,9 @@ const InfoFinances = () => {
           </div>
           {/* faturamento mensal */}
           <div className="content__status">
-            <h3>Saldo total</h3>
+            <h3>Ticket Médio</h3>
             <strong>R$ {dados[0]?.saldo.replace(".", ",")}</strong>
-            <p>Total em todas as contas</p>
+            <p>Média por atendimento</p>
           </div>
         </article>
       </div>
