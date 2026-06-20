@@ -28,17 +28,9 @@ const Finances = ({ setEntradas, atualizarTela }) => {
   const [dinheiroAdd, setDinheiroAdd] = useState(0);
   const [dinheiroWithdraw, setDinheiroWithdraw] = useState(0);
   const [dinheiroAtual, setDinheiroAtual] = useState(0);
+  const [agendamentos, setAgendamentos] = useState([]);
 
-  useEffect(() => {
-    fetch("http://192.168.1.2:3500/dinheiro")
-      .then((resposta) => resposta.json())
-      .then((dados) => {
-        if (dados && dados.length > 0) {
-          setDinheiroAtual(dados[0].saldo);
-        }
-      })
-      .catch((error) => console.error(error));
-  }, []);
+  let tableServices = [];
 
   const [banco, setBanco] = useState({
     nome: "",
@@ -50,6 +42,76 @@ const Finances = ({ setEntradas, atualizarTela }) => {
     email: "",
     verificado: false,
   });
+
+  const buscarBancos = () => {
+    fetch("http://192.168.1.2:3500/bancos")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setBanco(dados[0]);
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  async function mudarStatus(id, valor) {
+    try {
+      const url = `http://192.168.1.2:3500/clientes/status?id=${id}&atendido=${valor}`;
+      const response = await fetch(url, { method: "PUT" });
+
+      if (!response.ok) {
+        alert("Erro ao mudar.");
+      } else {
+        buscarBancos();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    window.location.reload();
+  }
+
+  for (const agendamento of agendamentos) {
+    tableServices.push(
+      <tr key={agendamento.id}>
+        <td>{agendamento.nome_servico}</td>
+        <td>{agendamento.cliente}</td>
+        <td>{agendamento.faturamento}</td>
+        <td>
+          <select
+            value={agendamento.atendido}
+            onChange={(e) =>
+              mudarStatus(agendamento.id, Number(e.target.value))
+            }
+          >
+            <option value={1}>Confirmado</option>
+            <option value={0}>Pendente</option>
+          </select>
+        </td>
+      </tr>,
+    );
+  }
+
+  useEffect(() => {
+    fetch("http://192.168.1.2:3500/clientes")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setAgendamentos(dados);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    fetch("http://192.168.1.2:3500/dinheiro")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setDinheiroAtual(dados[0].saldo);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   useEffect(() => {
     fetch("http://192.168.1.2:3500/bancos")
@@ -125,17 +187,6 @@ const Finances = ({ setEntradas, atualizarTela }) => {
       console.error("Erro:", error);
     }
   }
-
-  const buscarBancos = () => {
-    fetch("http://192.168.1.2:3500/bancos")
-      .then((resposta) => resposta.json())
-      .then((dados) => {
-        if (dados && dados.length > 0) {
-          setBanco(dados[0]);
-        }
-      })
-      .catch((error) => console.error(error));
-  };
 
   const buscarPaypal = () => {
     fetch("http://192.168.1.2:3500/paypal")
@@ -439,13 +490,28 @@ const Finances = ({ setEntradas, atualizarTela }) => {
               </article>
             )}
             {services && (
-              <article className="content__tab">
-                <h3>Serviços em Conclusão</h3>
+              <article className="content__tab content__tab-100">
+                <div>
+                  <h3>Serviços em Conclusão</h3>
+                </div>
+                <table className="content__table">
+                  <thead>
+                    <tr>
+                      <th>Serviço</th>
+                      <th>Cliente</th>
+                      <th>Preço</th>
+                      <th>Pendente</th>
+                    </tr>
+                  </thead>
+                  <tbody>{tableServices}</tbody>
+                </table>
               </article>
             )}
             {historic && (
               <article className="content__tab">
-                <h3>Histórico de Transações</h3>
+                <div>
+                  <h3>Histórico de Transações</h3>
+                </div>
               </article>
             )}
           </div>

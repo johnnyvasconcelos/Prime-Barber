@@ -559,6 +559,14 @@
           }
         }
       }
+
+      .content__tab-100 {
+        flex-direction: column;
+
+        .content__table {
+          width: 100%;
+        }
+      }
     }
   }
 }

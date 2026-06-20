@@ -51,6 +51,43 @@ app.get("/clientes/cliente", async (req, res) => {
   }
 });
 
+app.put("/clientes/status", async (req, res) => {
+  try {
+    const { id, atendido } = req.query;
+    const novoStatus = Number(atendido);
+
+    const [agendamento] = await DB.query(
+      "SELECT atendido, faturamento FROM agendamentos WHERE id = ?",
+      [id],
+    );
+
+    if (agendamento.length > 0) {
+      const statusAtual = agendamento[0].atendido;
+      const valor = agendamento[0].faturamento;
+
+      if (statusAtual === 0 && novoStatus === 1) {
+        await DB.query("UPDATE barbearia SET saldo = saldo + ?", [valor]);
+        await DB.query("INSERT INTO historico (entrada, saida) VALUES (?, 0)", [
+          valor,
+        ]);
+      } else if (statusAtual === 1 && novoStatus === 0) {
+        await DB.query("UPDATE barbearia SET saldo = saldo - ?", [valor]);
+        await DB.query("INSERT INTO historico (entrada, saida) VALUES (0, ?)", [
+          valor,
+        ]);
+      }
+    }
+
+    const [dados] = await DB.query(
+      "UPDATE agendamentos SET atendido = ? WHERE id = ?",
+      [novoStatus, id],
+    );
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.get("/servicos", async (req, res) => {
   try {
     const [dados] = await DB.query("SELECT * FROM cortes");
