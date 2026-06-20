@@ -304,6 +304,18 @@ app.get("/historico/soma", async (req, res) => {
   }
 });
 
+app.get("/search", async (req, res) => {
+  try {
+    const termo = `%${req.query.q || ""}%`;
+    const query =
+      "SELECT id, cliente AS nome, nome_servico AS servico, faturamento FROM agendamentos WHERE cliente LIKE ? OR nome_servico LIKE ?";
+    const [results] = await DB.query(query, [termo, termo]);
+    res.json(results);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor PORTA: ${PORT}`);
 });

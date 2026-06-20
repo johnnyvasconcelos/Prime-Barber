@@ -6,7 +6,20 @@ import {
   FaCog,
   FaDoorOpen,
 } from "react-icons/fa";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const TopBar = ({ menu, setMenu, userMenu, setUserMenu }) => {
+  const [busca, setBusca] = useState("");
+  const navegar = useNavigate();
+
+  const enviarBusca = (e) => {
+    if (e) e.preventDefault();
+    if (busca.trim()) {
+      navegar(`/search?q=${busca}`);
+    }
+  };
+
   return (
     <nav className="content__nav">
       <div className="content__container">
@@ -16,14 +29,16 @@ const TopBar = ({ menu, setMenu, userMenu, setUserMenu }) => {
               setMenu(!menu);
             }}
           />
-          <form className="content__search">
+          <form className="content__search" onSubmit={enviarBusca}>
             <input
               type="search"
               name="search"
               id="search"
               placeholder="Buscar clientes, agendamentos"
+              value={busca}
+              onChange={(e) => setBusca(e.target.value)}
             />
-            <FaSearch />
+            <FaSearch onClick={enviarBusca} style={{ cursor: "pointer" }} />
           </form>
         </div>
         <div className="content__before">

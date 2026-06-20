@@ -1,6 +1,5 @@
 import { FaPlus, FaTimes } from "react-icons/fa";
 import { useState, useEffect } from "react";
-
 const MainHeader = ({ title, subtitle, button }) => {
   const [addModal, setAddModal] = useState(false);
   const [...setData] = useState([]);

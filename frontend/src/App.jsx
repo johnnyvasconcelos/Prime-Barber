@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Clients from "./pages/Clients";
 import Services from "./pages/Services";
 import Finances from "./pages/Finances";
+import PSearch from "./pages/PSearch";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/clientes" element={<Clients />} />
         <Route path="/servicos" element={<Services />} />
         <Route path="/financeiro" element={<Finances />} />
+        <Route path="/search" element={<PSearch />} />
       </Routes>
     </BrowserRouter>
   );
