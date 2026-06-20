@@ -2,6 +2,11 @@ import { FaWallet, FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { useState, useEffect } from "react";
 const InfoFinances = () => {
   const [dados, setDados] = useState([]);
+  const [mesPassado, setMesPassado] = useState({
+    total_entradas: 0,
+    total_saidas: 0,
+  });
+
   useEffect(() => {
     fetch("http://192.168.1.2:3500/barbearia")
       .then((resposta) => resposta.json())
@@ -10,7 +15,16 @@ const InfoFinances = () => {
       })
       .catch((error) => console.error(error));
   }, []);
-  // pega o ticked médio da barbearia
+
+  useEffect(() => {
+    fetch("http://192.168.1.2:3500/historico/soma")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        setMesPassado(dados);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   const [agendamentos, setAgendamentos] = useState([]);
   useEffect(() => {
     fetch("http://192.168.1.2:3500/clientes")
@@ -23,7 +37,14 @@ const InfoFinances = () => {
       .catch((error) => console.error(error));
   }, []);
 
+  /*
+  function getEntradas() {
+    return entradas.toFixed(2).replaceAll(".", ",");
+  }
+    */
+
   function getMedia() {
+    if (agendamentos.length === 0) return "0,00";
     let valoresCalculo = 0;
     let valoresMedia = [];
 
@@ -43,7 +64,6 @@ const InfoFinances = () => {
           <div className="content__icon">
             <FaWallet />
           </div>
-          {/* agendamentos */}
           <div className="content__status">
             <h3>Saldo Atual</h3>
             <strong>R$ {dados[0]?.saldo.replace(".", ",")}</strong>
@@ -54,10 +74,14 @@ const InfoFinances = () => {
           <div className="content__icon">
             <FaArrowDown />
           </div>
-          {/* clientes */}
           <div className="content__status">
-            <h3>Entradas (este mês)</h3>
-            <strong>R$ {dados[0]?.entradas.replace(".", ",")}</strong>
+            <h3>Entradas (último mês)</h3>
+            <strong>
+              R${" "}
+              {Number(mesPassado.total_entradas || 0)
+                .toFixed(2)
+                .replaceAll(".", ",")}
+            </strong>
             <p>
               {dados.length > 0
                 ? (() => {
@@ -128,10 +152,14 @@ const InfoFinances = () => {
           <div className="content__icon">
             <FaArrowUp />
           </div>
-          {/* faturamento diário */}
           <div className="content__status">
-            <h3>Saídas (este mês)</h3>
-            <strong>R$ {dados[0]?.saidas.replace(".", ",")}</strong>
+            <h3>Saídas (último mês)</h3>
+            <strong>
+              R${" "}
+              {Number(mesPassado.total_saidas || 0)
+                .toFixed(2)
+                .replaceAll(".", ",")}
+            </strong>
             <p>
               {dados.length > 0
                 ? (() => {
@@ -197,7 +225,6 @@ const InfoFinances = () => {
           <div className="content__icon">
             <FaWallet />
           </div>
-          {/* faturamento mensal */}
           <div className="content__status">
             <h3>Ticket Médio</h3>
             <strong>R$ {getMedia()}</strong>

@@ -8,7 +8,8 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
-const Finances = () => {
+
+const Finances = ({ setEntradas, atualizarTela }) => {
   const [general, setGeneral] = useState(true);
   const [services, setServices] = useState(false);
   const [historic, setHistoric] = useState(false);
@@ -38,7 +39,7 @@ const Finances = () => {
       })
       .catch((error) => console.error(error));
   }, []);
-  console.log(dinheiroAtual);
+
   const [banco, setBanco] = useState({
     nome: "",
     agencia: "",
@@ -49,37 +50,37 @@ const Finances = () => {
     email: "",
     verificado: false,
   });
-  function CarregaAi() {
-    useEffect(() => {
-      fetch("http://192.168.1.2:3500/bancos")
-        .then((resposta) => resposta.json())
-        .then((dados) => {
-          if (dados && dados.length > 0) {
-            setBanco(dados[0]);
-          }
-        })
-        .catch((error) => console.error(error));
-    }, []);
-    useEffect(() => {
-      fetch("http://192.168.1.2:3500/paypal")
-        .then((resposta) => resposta.json())
-        .then((dados) => {
-          if (dados && dados.length > 0) {
-            setPaypal(dados[0]);
-          }
-        })
-        .catch((error) => console.error(error));
-    }, []);
-  }
-  CarregaAi();
+
+  useEffect(() => {
+    fetch("http://192.168.1.2:3500/bancos")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setBanco(dados[0]);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  console.log(dinheiroAtual);
+
+  useEffect(() => {
+    fetch("http://192.168.1.2:3500/paypal")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setPaypal(dados[0]);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   async function enviaPaypal() {
     try {
       const url = `http://192.168.1.2:3500/paypal/item?email=${encodeURIComponent(emailPaypal)}`;
-
       const response = await fetch(url);
-
       if (!response.ok) {
-        alert("Erro ao adicionar.");
+        alert("Erro");
       } else {
         setPaypalForm(false);
         showPop(false);
@@ -88,17 +89,14 @@ const Finances = () => {
     } catch (error) {
       console.error("Erro:", error);
     }
-    CarregaAi();
-    carregaPagina();
   }
+
   async function enviaBank() {
     try {
       const url = `http://192.168.1.2:3500/banco/item?nome=${encodeURIComponent(nomeBanco)}&conta=${encodeURIComponent(contaBanco)}&agencia=${encodeURIComponent(agenciaBanco)}`;
-
       const response = await fetch(url);
-
       if (!response.ok) {
-        alert("Erro ao adicionar.");
+        alert("Erro.");
       } else {
         setBankForm(false);
         showPop(false);
@@ -112,9 +110,8 @@ const Finances = () => {
   async function deletaBank() {
     try {
       const response = await fetch("http://192.168.1.2:3500/bancos/deletar");
-
       if (!response.ok) {
-        alert("Erro ao deletar.");
+        alert("Erro.");
       } else {
         setBanco({
           nome: "",
@@ -154,9 +151,8 @@ const Finances = () => {
   async function deletaPaypal() {
     try {
       const response = await fetch("http://192.168.1.2:3500/paypal/deletar");
-
       if (!response.ok) {
-        alert("Erro ao deletar paypal.");
+        alert("Erro.");
       } else {
         setPaypal({
           email: "",
@@ -169,21 +165,24 @@ const Finances = () => {
     }
   }
 
-  function carregaPagina() {
-    CarregaAi();
-    window.location.reload();
-  }
-
   async function enviaGrana() {
     try {
-      const url = `http://192.168.1.2:3500/dinheiro/adicionar?quantidade=${encodeURIComponent(dinheiroAdd)}`;
-      const response = await fetch(url, { method: "POST" });
+      const url = `http://192.168.1.2:3500/dinheiro/adicionar`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ quantidade: Number(dinheiroAdd) }),
+      });
 
       if (!response.ok) {
-        alert("Erro ao adicionar dinheiro.");
+        alert("Erro.");
       } else {
         setAddMoney(false);
         showPop(false);
+        setEntradas(Number(dinheiroAdd));
+        if (atualizarTela) atualizarTela();
       }
     } catch (error) {
       console.error("Erro:", error);
@@ -192,19 +191,27 @@ const Finances = () => {
 
   async function retiraGrana() {
     try {
-      const url = `http://192.168.1.2:3500/dinheiro/retirar?quantidade=${encodeURIComponent(dinheiroWithdraw)}`;
-      const response = await fetch(url, { method: "POST" });
+      const url = `http://192.168.1.2:3500/dinheiro/retirar`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ quantidade: dinheiroWithdraw }),
+      });
 
       if (!response.ok) {
-        alert("Erro ao retirar dinheiro.");
+        alert("Erro.");
       } else {
         setWithdrawMoney(false);
         showPop(false);
+        if (atualizarTela) atualizarTela();
       }
     } catch (error) {
       console.error("Erro:", error);
     }
   }
+
   return (
     <>
       <section className="content__finances">
@@ -294,13 +301,7 @@ const Finances = () => {
                               <li>
                                 <FaTrash />
                                 &nbsp;
-                                <a
-                                  onClick={() => {
-                                    deletaBank();
-                                  }}
-                                >
-                                  Remover
-                                </a>
+                                <a onClick={() => deletaBank()}>Remover</a>
                               </li>
                             </ul>
                           </div>
@@ -339,13 +340,7 @@ const Finances = () => {
                               <li>
                                 <FaTrash />
                                 &nbsp;
-                                <a
-                                  onClick={() => {
-                                    deletaPaypal();
-                                  }}
-                                >
-                                  Remover
-                                </a>
+                                <a onClick={() => deletaPaypal()}>Remover</a>
                               </li>
                             </ul>
                           </div>
@@ -446,19 +441,17 @@ const Finances = () => {
             {services && (
               <article className="content__tab">
                 <h3>Serviços em Conclusão</h3>
-                {/* tabela de recebimento, serviços pendentes */}
               </article>
             )}
             {historic && (
               <article className="content__tab">
                 <h3>Histórico de Transações</h3>
-                {/* tabela de transações */}
               </article>
             )}
           </div>
         </div>
       </section>
-      {/* formulário modal */}
+
       {pop && (
         <div
           className="background-modal"
@@ -470,18 +463,8 @@ const Finances = () => {
           }}
         >
           {bancoOuPaypal && (
-            <div
-              className="form-modal"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <FaTimes
-                className="close"
-                onClick={() => {
-                  showPop(false);
-                }}
-              />
+            <div className="form-modal" onClick={(e) => e.stopPropagation()}>
+              <FaTimes className="close" onClick={() => showPop(false)} />
               <div className="selects">
                 <div
                   className="select"
@@ -509,9 +492,7 @@ const Finances = () => {
           {paypalForm && (
             <form
               className="form-modal"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
+              onClick={(e) => e.stopPropagation()}
               onSubmit={enviaPaypal}
             >
               <FaTimes
@@ -534,7 +515,6 @@ const Finances = () => {
                 onChange={(e) => setEmailPaypal(e.target.value)}
                 required
               />
-
               <div className="buttons">
                 <button
                   type="button"
@@ -552,9 +532,7 @@ const Finances = () => {
           {bankForm && (
             <form
               className="form-modal"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
+              onClick={(e) => e.stopPropagation()}
               onSubmit={enviaBank}
             >
               <FaTimes
@@ -576,7 +554,6 @@ const Finances = () => {
                 placeholder="Ex.: Banco Inter"
                 onChange={(e) => setNomeBanco(e.target.value)}
               />
-
               <label htmlFor="conta">Conta</label>
               <input
                 type="number"
@@ -586,7 +563,6 @@ const Finances = () => {
                 placeholder="Ex.: 123456"
                 onChange={(e) => setContaBanco(e.target.value)}
               />
-
               <label htmlFor="agencia">Agência</label>
               <input
                 type="text"
@@ -596,7 +572,6 @@ const Finances = () => {
                 placeholder="Ex.: 12345-6"
                 onChange={(e) => setAgenciaBanco(e.target.value)}
               />
-
               <div className="buttons">
                 <button
                   type="button"
@@ -614,9 +589,7 @@ const Finances = () => {
           {addMoney && (
             <form
               className="form-modal"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
+              onClick={(e) => e.stopPropagation()}
               onSubmit={enviaGrana}
             >
               <FaTimes
@@ -639,7 +612,6 @@ const Finances = () => {
                 onChange={(e) => setDinheiroAdd(e.target.value)}
                 required
               />
-
               <div className="buttons">
                 <button
                   type="button"
@@ -654,13 +626,10 @@ const Finances = () => {
               </div>
             </form>
           )}
-
           {withdrawMoney && (
             <form
               className="form-modal"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
+              onClick={(e) => e.stopPropagation()}
               onSubmit={retiraGrana}
             >
               <FaTimes
@@ -683,7 +652,6 @@ const Finances = () => {
                 onChange={(e) => setDinheiroWithdraw(e.target.value)}
                 required
               />
-
               <div className="buttons">
                 <button
                   type="button"

@@ -6,7 +6,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors());
-// app.use(express.json());
+app.use(express.json());
 const PORT = process.env.PORT || 3500;
 
 app.get("/", async (req, res) => {
@@ -151,7 +151,6 @@ app.get("/banco/item", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ error: error.message });
   }
 });
 
@@ -188,21 +187,74 @@ app.get("/dinheiro", async (req, res) => {
 
 app.post("/dinheiro/adicionar", async (req, res) => {
   try {
-    const quantidade = parseFloat(req.query.quantidade);
+    const quantidade = Number(req.body.quantidade);
+
+    if (isNaN(quantidade)) {
+      return res.status(400).json({ error: "Quantidade inválida" });
+    }
+
     await DB.query("UPDATE barbearia SET saldo = saldo + ?", [quantidade]);
+    await DB.query("INSERT INTO historico (entrada, saida) VALUES (?, 0)", [
+      quantidade,
+    ]);
     res.json({ success: true });
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ error: error.message });
   }
 });
 
 app.post("/dinheiro/retirar", async (req, res) => {
   try {
-    const quantidade = parseFloat(req.query.quantidade);
+    const quantidade = Number(req.body.quantidade);
+
+    if (isNaN(quantidade)) {
+      return res.status(400).json({ error: "Quantidade inválida" });
+    }
+
     await DB.query("UPDATE barbearia SET saldo = saldo - ?", [quantidade]);
+    await DB.query("INSERT INTO historico (entrada, saida) VALUES (0, ?)", [
+      quantidade,
+    ]);
     res.json({ success: true });
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/historico", async (req, res) => {
+  try {
+    const [transacoes] = await DB.query(
+      "SELECT * FROM historico ORDER BY data DESC",
+    );
+
+    const [totais] = await DB.query(
+      "SELECT SUM(entrada) AS total_entradas, SUM(saida) AS total_saidas FROM historico",
+    );
+
+    res.json({
+      transacoes,
+      total_entradas: totais[0].total_entradas || 0,
+      total_saidas: totais[0].total_saidas || 0,
+      saldo_historico:
+        (totais[0].total_entradas || 0) - (totais[0].total_saidas || 0),
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/historico/soma", async (req, res) => {
+  try {
+    const [dados] = await DB.query(
+      "SELECT SUM(entrada) AS total_entradas, SUM(saida) AS total_saidas FROM historico",
+    );
+    res.json(dados[0] || { total_entradas: 0, total_saidas: 0 });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: error.message });
   }
 });
 
