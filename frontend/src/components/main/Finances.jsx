@@ -29,8 +29,11 @@ const Finances = ({ setEntradas, atualizarTela }) => {
   const [dinheiroWithdraw, setDinheiroWithdraw] = useState(0);
   const [dinheiroAtual, setDinheiroAtual] = useState(0);
   const [agendamentos, setAgendamentos] = useState([]);
+  const [history, setHistory] = useState([]);
 
   let tableServices = [];
+  let tableHistoryEntradas = [];
+  let tableHistorySaidas = [];
 
   const [banco, setBanco] = useState({
     nome: "",
@@ -53,6 +56,17 @@ const Finances = ({ setEntradas, atualizarTela }) => {
       })
       .catch((error) => console.error(error));
   };
+
+  useEffect(() => {
+    fetch("http://192.168.1.2:3500/historico-itens")
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        if (dados && dados.length > 0) {
+          setHistory(dados);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   async function mudarStatus(id, valor) {
     try {
@@ -89,6 +103,30 @@ const Finances = ({ setEntradas, atualizarTela }) => {
         </td>
       </tr>,
     );
+  }
+
+  for (const item of history) {
+    if (item.entrada > 0.0) {
+      tableHistoryEntradas.push(
+        <tr key={item.id}>
+          <td>{item.id}</td>
+          <td>{item.entrada}</td>
+          <td>{item.data}</td>
+        </tr>,
+      );
+    }
+  }
+
+  for (const item of history) {
+    if (item.saida > 0.0) {
+      tableHistorySaidas.push(
+        <tr key={item.id}>
+          <td>{item.id}</td>
+          <td>{item.saida}</td>
+          <td>{item.data}</td>
+        </tr>,
+      );
+    }
   }
 
   useEffect(() => {
@@ -508,10 +546,37 @@ const Finances = ({ setEntradas, atualizarTela }) => {
               </article>
             )}
             {historic && (
-              <article className="content__tab">
+              <article className="content__tab content__tab-100">
                 <div>
                   <h3>Histórico de Transações</h3>
                 </div>
+                <table className="content__table">
+                  <thead>
+                    <p>
+                      <strong>Entradas:</strong>
+                    </p>
+                    <tr>
+                      <th>ID</th>
+                      <th>Valor da Entrada</th>
+                      <th>Data</th>
+                    </tr>
+                  </thead>
+                  <tbody>{tableHistoryEntradas}</tbody>
+                </table>
+                <br />
+                <table className="content__table">
+                  <thead>
+                    <p>
+                      <strong>Saídas:</strong>
+                    </p>
+                    <tr>
+                      <th>ID</th>
+                      <th>Valor da Saída</th>
+                      <th>Data</th>
+                    </tr>
+                  </thead>
+                  <tbody>{tableHistorySaidas}</tbody>
+                </table>
               </article>
             )}
           </div>

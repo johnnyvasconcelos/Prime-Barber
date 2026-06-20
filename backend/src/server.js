@@ -283,6 +283,15 @@ app.get("/historico", async (req, res) => {
   }
 });
 
+app.get("/historico-itens", async (req, res) => {
+  try {
+    const [dados] = await DB.query("SELECT * FROM historico");
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.get("/historico/soma", async (req, res) => {
   try {
     const [dados] = await DB.query(
