@@ -42,12 +42,12 @@ const Aside = ({ menu, setMenu, active }) => {
               </Link>
             </li>
             <li className="aside__item">
-              <a
-                href="#"
+              <Link
+                to="/agenda"
                 className={`${active === "agenda" ? "aside__link aside__link--active" : "aside__link"}`}
               >
                 <FaCalendarAlt /> <span>Agenda</span>
-              </a>
+              </Link>
             </li>
             <li className="aside__item">
               <Link
@@ -82,12 +82,12 @@ const Aside = ({ menu, setMenu, active }) => {
               </Link>
             </li>
             <li className="aside__item">
-              <a
-                href="#"
+              <Link
+                to="/configuracoes"
                 className={`${active === "configuracoes" ? "aside__link aside__link--active" : "aside__link"}`}
               >
                 <FaCog /> <span>Configurações</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
