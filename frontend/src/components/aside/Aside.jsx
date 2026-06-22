@@ -74,12 +74,12 @@ const Aside = ({ menu, setMenu, active }) => {
               </Link>
             </li>
             <li className="aside__item">
-              <a
-                href="#"
-                className={`${active === "relatorio" ? "aside__link aside__link--active" : "aside__link"}`}
+              <Link
+                to="/relatorios"
+                className={`${active === "relatorios" ? "aside__link aside__link--active" : "aside__link"}`}
               >
                 <FaChartBar /> <span>Relatório</span>
-              </a>
+              </Link>
             </li>
             <li className="aside__item">
               <a
