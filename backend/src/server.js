@@ -27,6 +27,15 @@ app.get("/clientes", async (req, res) => {
   }
 });
 
+app.get("/cl", async (req, res) => {
+  try {
+    const [dados] = await DB.query("SELECT * FROM clientes");
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.get("/clientes/cliente", async (req, res) => {
   try {
     const { nome_servico, cliente, profissional } = req.query;

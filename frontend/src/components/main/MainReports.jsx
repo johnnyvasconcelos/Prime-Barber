@@ -1,7 +1,7 @@
 import TopBar from "./TopBar";
-import Reports from "./Reports";
 import MainHeader from "./MainHeader";
 import InfoReports from "./InfoReports";
+import Exports from "./Exports";
 import "./_Main.css";
 
 const MainReports = ({ menu, setMenu, userMenu, setUserMenu }) => {
@@ -17,8 +17,8 @@ const MainReports = ({ menu, setMenu, userMenu, setUserMenu }) => {
         title="Relatórios"
         subtitle="Analise e exporte dados da barbearia!"
       />
+      <Exports />
       <InfoReports />
-      <Reports />
     </main>
   );
 };
