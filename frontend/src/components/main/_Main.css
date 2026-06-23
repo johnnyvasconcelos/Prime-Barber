@@ -159,6 +159,110 @@
     }
   }
 
+  .content__expocontainer {
+    background-color: #6585b4;
+    padding: 24px;
+
+    .export__filters {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      width: 100%;
+      flex-wrap: wrap;
+
+      .filter__card {
+        display: flex;
+        align-items: center;
+        background-color: #ffffff;
+        border: 1px solid #ebf0f7;
+        border-radius: 8px;
+        padding: 14px 20px;
+        min-width: 260px;
+        height: 64px;
+        box-sizing: border-box;
+        cursor: pointer;
+
+        .filter__icon {
+          color: #4d577c;
+          width: 22px;
+          height: 22px;
+          margin-right: 14px;
+          flex-shrink: 0;
+        }
+
+        .filter__info {
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+
+          .filter__label {
+            font-size: 12px;
+            color: #7b859e;
+            font-weight: 500;
+            margin-bottom: 2px;
+            cursor: pointer;
+          }
+
+          .filter__value {
+            font-size: 14px;
+            color: #0b1a42;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+          }
+        }
+
+        .filter__arrow {
+          color: #4d577c;
+          width: 16px;
+          height: 16px;
+          margin-left: 12px;
+          flex-shrink: 0;
+        }
+      }
+
+      .button__export {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 0 24px;
+        height: 48px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        box-shadow: 0 2px 4px rgba(67, 56, 202, 0.15);
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 0.95;
+        }
+
+        .button__icon {
+          width: 16px;
+          height: 16px;
+          color: #ffffff;
+        }
+      }
+    }
+
+    .filter__value {
+      border: none;
+      background: transparent;
+      width: 100%;
+      outline: none;
+      font: inherit;
+    }
+
+    select.filter__value {
+      cursor: pointer;
+    }
+  }
+
   .content__info {
     .content__container {
       display: flex;
