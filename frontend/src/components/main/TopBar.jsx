@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const TopBar = ({ menu, setMenu, userMenu, setUserMenu }) => {
   const [busca, setBusca] = useState("");
@@ -67,7 +68,7 @@ const TopBar = ({ menu, setMenu, userMenu, setUserMenu }) => {
             >
               <li>
                 <FaCog />
-                <a href="#"> Configurações</a>
+                <Link to="/configuracoes"> Configurações</Link>
               </li>
               <li>
                 <FaDoorOpen />

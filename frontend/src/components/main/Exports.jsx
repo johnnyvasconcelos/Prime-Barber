@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 const Exports = () => {
   const [clientes, setClientes] = useState([]);
+  /* 
   const [filtros, setFiltros] = useState({
     dataInicial: "",
     dataFinal: "",
     profissional: "todos",
     servico: "",
   });
+  */
   useEffect(() => {
     fetch("http://192.168.1.2:3500/clientes")
       .then((resposta) => resposta.json())

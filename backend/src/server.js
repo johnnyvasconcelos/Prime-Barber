@@ -27,6 +27,41 @@ app.get("/clientes", async (req, res) => {
   }
 });
 
+app.get("/usuarios", async (req, res) => {
+  try {
+    const [dados] = await DB.query("SELECT id, email, nome FROM usuarios");
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.get("/usuarios/deletar", async (req, res) => {
+  try {
+    const [dados] = await DB.query("DELETE FROM usuarios WHERE id = ?", [
+      req.query.id,
+    ]);
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.post("/usuarios/item", async (req, res) => {
+  try {
+    const { nome, preco, password } = req.body;
+
+    const [dados] = await DB.query(
+      "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)",
+      [nome, preco, password],
+    );
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ erro: "Erro ao inserir usuário" });
+  }
+});
+
 app.get("/cl", async (req, res) => {
   try {
     const [dados] = await DB.query("SELECT * FROM clientes");
