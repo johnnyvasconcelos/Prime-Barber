@@ -36,6 +36,43 @@ app.get("/usuarios", async (req, res) => {
   }
 });
 
+app.get("/agenda", async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        id, 
+        cliente, 
+        servico, 
+        DATE_FORMAT(data, '%Y-%m-%d') AS data, 
+        TIME_FORMAT(hora, '%H:%i') AS hora, 
+        status 
+      FROM agenda
+    `;
+    const [dados] = await DB.query(query);
+    res.json(dados);
+  } catch (error) {
+    console.error(error.message);
+    // res.status(500).json({ error: "Erro" });
+  }
+});
+
+app.post("/agenda/adicionar", async (req, res) => {
+  try {
+    const { cliente, servico, data, hora, status } = req.body;
+
+    const query = `
+      INSERT INTO agenda (cliente, servico, data, hora, status) 
+      VALUES (?, ?, ?, ?, ?)
+    `;
+
+    await DB.query(query, [cliente, servico, data, hora, status]);
+
+    res.status(201).json({ message: "Agendamento inserido com sucesso!" });
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.get("/usuarios/deletar", async (req, res) => {
   try {
     const [dados] = await DB.query("DELETE FROM usuarios WHERE id = ?", [
