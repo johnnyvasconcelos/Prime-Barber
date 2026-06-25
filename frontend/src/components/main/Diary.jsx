@@ -35,7 +35,7 @@ const Diary = () => {
       });
   }, []);
 
-  console.log(agendamentos);
+  // console.log(agendamentos);
 
   const nextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
   const prevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
