@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import DB from "./database/db.js";
+import db from "./database/db.js";
 dotenv.config();
 
 const app = express();
@@ -353,10 +354,9 @@ app.get("/historico", async (req, res) => {
 
     res.json({
       transacoes,
-      total_entradas: totais[0].total_entradas || 0,
-      total_saidas: totais[0].total_saidas || 0,
-      saldo_historico:
-        (totais[0].total_entradas || 0) - (totais[0].total_saidas || 0),
+      total_entradas: totais[0].total_entradas,
+      total_saidas: totais[0].total_saidas,
+      saldo_historico: totais[0].total_entradas - totais[0].total_saidas,
     });
   } catch (error) {
     console.error(error.message);
@@ -394,6 +394,27 @@ app.get("/search", async (req, res) => {
     res.json(results);
   } catch (error) {
     console.error(error.message);
+  }
+});
+
+// login
+
+app.post("/login", async (req, res) => {
+  try {
+    const { email, senha } = req.body;
+    const [usuarios] = await DB.query(
+      "SELECT id, nome, email FROM usuarios WHERE email = ? AND senha = ?",
+      [email, senha],
+    );
+
+    if (usuarios.length > 0) {
+      res.json({ logado: true, usuario: usuarios[0] });
+    } else {
+      res.json({ logado: false, erro: "Email ou senha incorretos" });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.json({ logado: false, erro: error.message });
   }
 });
 

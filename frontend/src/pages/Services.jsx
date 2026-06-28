@@ -1,10 +1,17 @@
 import Aside from "../components/aside/Aside.jsx";
 import MainServices from "../components/main/MainServices.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Services = () => {
   const [menu, setMenu] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
+  useEffect(() => {
+    const usuario = localStorage.getItem("usuario");
+
+    if (!usuario) {
+      window.location.replace("/login");
+    }
+  }, []);
   return (
     <div className="app">
       {/* aside */}

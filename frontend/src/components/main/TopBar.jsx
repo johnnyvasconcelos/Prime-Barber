@@ -72,7 +72,7 @@ const TopBar = ({ menu, setMenu, userMenu, setUserMenu }) => {
               </li>
               <li>
                 <FaDoorOpen />
-                <a href="#"> Sair</a>
+                <Link to="/login"> Sair</Link>
               </li>
             </ul>
           </div>

@@ -1,8 +1,15 @@
 import Aside from "../components/aside/Aside.jsx";
 import MainDiary from "../components/main/MainDiary.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Diary = () => {
+  useEffect(() => {
+    const usuario = localStorage.getItem("usuario");
+
+    if (!usuario) {
+      window.location.replace("/login");
+    }
+  }, []);
   const [menu, setMenu] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
   return (

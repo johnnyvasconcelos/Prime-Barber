@@ -5,6 +5,13 @@ import { useSearchParams } from "react-router-dom";
 import Aside from "../components/aside/Aside.jsx";
 
 const PSearch = ({ menu, setMenu }) => {
+  useEffect(() => {
+    const usuario = localStorage.getItem("usuario");
+
+    if (!usuario) {
+      window.location.replace("/login");
+    }
+  }, []);
   const [searchParams] = useSearchParams();
   const [resultados, setResultados] = useState([]);
   const termo = searchParams.get("q");

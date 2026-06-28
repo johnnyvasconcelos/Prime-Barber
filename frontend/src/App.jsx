@@ -8,6 +8,7 @@ import PSearch from "./pages/PSearch";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import Diary from "./pages/Diary";
+import Login from "./pages/Login";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/configuracoes" element={<Settings />} />
         <Route path="/agenda" element={<Diary />} />
         <Route path="/search" element={<PSearch />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
