@@ -16,6 +16,7 @@ app.get("/", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -25,6 +26,7 @@ app.get("/clientes", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -34,6 +36,7 @@ app.get("/usuarios", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -53,7 +56,7 @@ app.get("/agenda", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
-    // res.status(500).json({ error: "Erro" });
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -71,6 +74,7 @@ app.post("/agenda/adicionar", async (req, res) => {
     res.status(201).json({ message: "Agendamento inserido com sucesso!" });
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -82,6 +86,7 @@ app.get("/usuarios/deletar", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -96,7 +101,7 @@ app.post("/usuarios/item", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ erro: "Erro ao inserir usuário" });
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -106,6 +111,7 @@ app.get("/cl", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -130,6 +136,7 @@ app.get("/clientes/cliente", async (req, res) => {
     res.json(resultado);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -167,6 +174,7 @@ app.put("/clientes/status", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -176,6 +184,7 @@ app.get("/servicos", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -188,6 +197,7 @@ app.get("/servicos/item", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -199,6 +209,7 @@ app.get("/servicos/deletar", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -211,6 +222,7 @@ app.get("/servicos/editar", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -220,6 +232,7 @@ app.get("/barbearia", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -229,6 +242,7 @@ app.get("/bancos", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -250,7 +264,7 @@ app.get("/paypal/item", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -270,6 +284,7 @@ app.get("/banco/item", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -281,6 +296,7 @@ app.get("/bancos/deletar", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -292,6 +308,7 @@ app.get("/paypal/deletar", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -301,6 +318,7 @@ app.get("/dinheiro", async (req, res) => {
     res.json(dados);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -319,7 +337,7 @@ app.post("/dinheiro/adicionar", async (req, res) => {
     res.json({ success: true });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -338,7 +356,7 @@ app.post("/dinheiro/retirar", async (req, res) => {
     res.json({ success: true });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -360,7 +378,7 @@ app.get("/historico", async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -381,7 +399,7 @@ app.get("/historico/soma", async (req, res) => {
     res.json(dados[0] || { total_entradas: 0, total_saidas: 0 });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ erro: error.message });
   }
 });
 
@@ -394,6 +412,7 @@ app.get("/search", async (req, res) => {
     res.json(results);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ erro: error.message });
   }
 });
 
