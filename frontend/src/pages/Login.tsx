@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Login = () => {
+  /* 
   useEffect(() => {
     const usuario = localStorage.getItem("usuario");
 
@@ -8,6 +9,7 @@ const Login = () => {
       window.location.replace("/login");
     }
   }, []);
+  */
   const [user, setUser] = useState("convidado@teste.com");
   const [password, setPassword] = useState("@100Cem100!");
 
