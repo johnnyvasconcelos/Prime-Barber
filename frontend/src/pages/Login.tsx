@@ -18,7 +18,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "http://https://prime-barber-dash.onrender.com/login",
+        "https://prime-barber-dash.onrender.com/login",
         {
           method: "POST",
           headers: {

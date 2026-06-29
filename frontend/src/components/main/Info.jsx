@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const Info = () => {
   const [dados, setDados] = useState([]);
   useEffect(() => {
-    fetch("http://https://prime-barber-dash.onrender.com/")
+    fetch("https://prime-barber-dash.onrender.com/")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setDados(dados);

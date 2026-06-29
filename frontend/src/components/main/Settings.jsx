@@ -7,7 +7,7 @@ const Settings = () => {
   const [nome, setNome] = useState("");
   const [password, setPassword] = useState("");
   useEffect(() => {
-    fetch("http://https://prime-barber-dash.onrender.com/usuarios")
+    fetch("https://prime-barber-dash.onrender.com/usuarios")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setUsers(dados);
@@ -18,7 +18,7 @@ const Settings = () => {
     if (confirm("Remover o serviço?")) {
       try {
         const response = await fetch(
-          `http://https://prime-barber-dash.onrender.com/usuarios/deletar?id=${id}`,
+          `https://prime-barber-dash.onrender.com/usuarios/deletar?id=${id}`,
         );
         if (!response.ok) {
           alert("Erro ao remover.");
@@ -34,7 +34,7 @@ const Settings = () => {
   async function enviar() {
     try {
       const response = await fetch(
-        "http://https://prime-barber-dash.onrender.com/usuarios/item",
+        "https://prime-barber-dash.onrender.com/usuarios/item",
         {
           method: "POST",
           headers: {

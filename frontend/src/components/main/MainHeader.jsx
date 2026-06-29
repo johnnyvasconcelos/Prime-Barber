@@ -10,7 +10,7 @@ const MainHeader = ({ title, subtitle, button }) => {
   const [listaServicos, setListaServicos] = useState([]);
 
   const carregarDado = () => {
-    fetch("http://https://prime-barber-dash.onrender.com/clientes")
+    fetch("https://prime-barber-dash.onrender.com/clientes")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setData(dados);
@@ -19,7 +19,7 @@ const MainHeader = ({ title, subtitle, button }) => {
   };
 
   const carregarServicos = () => {
-    fetch("http://https://prime-barber-dash.onrender.com/servicos")
+    fetch("https://prime-barber-dash.onrender.com/servicos")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setListaServicos(dados);
@@ -36,7 +36,7 @@ const MainHeader = ({ title, subtitle, button }) => {
 
   async function enviarDado() {
     try {
-      const url = `http://https://prime-barber-dash.onrender.com/clientes/cliente?cliente=${encodeURIComponent(cliente)}&nome_servico=${encodeURIComponent(nomeServico)}&profissional=${encodeURIComponent(profissional)}`;
+      const url = `https://prime-barber-dash.onrender.com/clientes/cliente?cliente=${encodeURIComponent(cliente)}&nome_servico=${encodeURIComponent(nomeServico)}&profissional=${encodeURIComponent(profissional)}`;
 
       const response = await fetch(url);
 
