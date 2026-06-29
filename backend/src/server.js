@@ -25,8 +25,12 @@ app.get("/clientes", async (req, res) => {
     const [dados] = await DB.query("SELECT * FROM agendamentos");
     res.json(dados);
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ erro: error.message });
+    console.error(error);
+    res.status(500).json({
+      erro: error.message || "Erro sem mensag",
+      detalhes: error.toString(),
+      codigo: error.code || "Sem códig",
+    });
   }
 });
 
