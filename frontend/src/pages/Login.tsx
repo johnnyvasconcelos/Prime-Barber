@@ -17,16 +17,19 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://192.168.1.2:3500/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "http://https://prime-barber-dash.onrender.com/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user,
+            senha: password,
+          }),
         },
-        body: JSON.stringify({
-          email: user,
-          senha: password,
-        }),
-      });
+      );
 
       const dados = await response.json();
 

@@ -28,7 +28,7 @@ const Diary = () => {
   const [status, setStatus] = useState("Pendente");
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/agenda")
+    fetch("http://https://prime-barber-dash.onrender.com/agenda")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setAgendamentos(dados);
@@ -141,7 +141,7 @@ const Diary = () => {
 
     const dadosAgendamento = { cliente, servico, data, hora, status };
 
-    fetch("http://192.168.1.2:3500/agenda/adicionar", {
+    fetch("http://https://prime-barber-dash.onrender.com/agenda/adicionar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -155,7 +155,7 @@ const Diary = () => {
         return resposta.json();
       })
       .then(() => {
-        return fetch("http://192.168.1.2:3500/agenda");
+        return fetch("http://https://prime-barber-dash.onrender.com/agenda");
       })
       .then((resposta) => resposta.json())
       .then((dados) => {

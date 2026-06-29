@@ -5,7 +5,7 @@ const InfoReports = () => {
   const [dadosAgendamentos, setDadosAgendamentos] = useState([]);
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/cl")
+    fetch("http://https://prime-barber-dash.onrender.com/cl")
       .then((resposta) => {
         return resposta.json();
       })
@@ -18,7 +18,7 @@ const InfoReports = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/clientes")
+    fetch("http://https://prime-barber-dash.onrender.com/clientes")
       .then((resposta) => {
         return resposta.json();
       })

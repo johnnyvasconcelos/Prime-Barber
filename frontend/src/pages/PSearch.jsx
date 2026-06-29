@@ -19,7 +19,9 @@ const PSearch = ({ menu, setMenu }) => {
   useEffect(() => {
     const buscarDados = async () => {
       try {
-        const response = await fetch(`http://localhost:3500/search?q=${termo}`);
+        const response = await fetch(
+          `https://prime-barber-dash.onrender.com/search?q=${termo}`,
+        );
         const dados = await response.json();
         setResultados(dados);
       } catch (error) {

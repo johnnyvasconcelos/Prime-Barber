@@ -8,7 +8,7 @@ const InfoFinances = () => {
   });
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/barbearia")
+    fetch("http://https://prime-barber-dash.onrender.com/barbearia")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setDados(dados);
@@ -17,7 +17,7 @@ const InfoFinances = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/historico/soma")
+    fetch("http://https://prime-barber-dash.onrender.com/historico/soma")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setMesPassado(dados);
@@ -27,7 +27,7 @@ const InfoFinances = () => {
 
   const [agendamentos, setAgendamentos] = useState([]);
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/clientes")
+    fetch("http://https://prime-barber-dash.onrender.com/clientes")
       .then((resposta) => resposta.json())
       .then((dados) => {
         if (dados && dados.length > 0) {

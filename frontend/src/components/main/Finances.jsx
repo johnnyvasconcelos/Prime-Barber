@@ -47,7 +47,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
   });
 
   const buscarBancos = () => {
-    fetch("http://192.168.1.2:3500/bancos")
+    fetch("http://https://prime-barber-dash.onrender.com/bancos")
       .then((resposta) => resposta.json())
       .then((dados) => {
         if (dados && dados.length > 0) {
@@ -58,7 +58,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/historico-itens")
+    fetch("http://https://prime-barber-dash.onrender.com/historico-itens")
       .then((resposta) => resposta.json())
       .then((dados) => {
         if (dados && dados.length > 0) {
@@ -70,7 +70,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
 
   async function mudarStatus(id, valor) {
     try {
-      const url = `http://192.168.1.2:3500/clientes/status?id=${id}&atendido=${valor}`;
+      const url = `http://https://prime-barber-dash.onrender.com/clientes/status?id=${id}&atendido=${valor}`;
       const response = await fetch(url, { method: "PUT" });
 
       if (!response.ok) {
@@ -130,7 +130,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
   }
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/clientes")
+    fetch("http://https://prime-barber-dash.onrender.com/clientes")
       .then((resposta) => resposta.json())
       .then((dados) => {
         if (dados && dados.length > 0) {
@@ -141,7 +141,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
   }, []);
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/dinheiro")
+    fetch("http://https://prime-barber-dash.onrender.com/dinheiro")
       .then((resposta) => resposta.json())
       .then((dados) => {
         if (dados && dados.length > 0) {
@@ -152,7 +152,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
   }, []);
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/bancos")
+    fetch("http://https://prime-barber-dash.onrender.com/bancos")
       .then((resposta) => resposta.json())
       .then((dados) => {
         if (dados && dados.length > 0) {
@@ -165,7 +165,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
   console.log(dinheiroAtual);
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/paypal")
+    fetch("http://https://prime-barber-dash.onrender.com/paypal")
       .then((resposta) => resposta.json())
       .then((dados) => {
         if (dados && dados.length > 0) {
@@ -177,7 +177,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
 
   async function enviaPaypal() {
     try {
-      const url = `http://192.168.1.2:3500/paypal/item?email=${encodeURIComponent(emailPaypal)}`;
+      const url = `http://https://prime-barber-dash.onrender.com/paypal/item?email=${encodeURIComponent(emailPaypal)}`;
       const response = await fetch(url);
       if (!response.ok) {
         alert("Erro");
@@ -193,7 +193,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
 
   async function enviaBank() {
     try {
-      const url = `http://192.168.1.2:3500/banco/item?nome=${encodeURIComponent(nomeBanco)}&conta=${encodeURIComponent(contaBanco)}&agencia=${encodeURIComponent(agenciaBanco)}`;
+      const url = `http://https://prime-barber-dash.onrender.com/banco/item?nome=${encodeURIComponent(nomeBanco)}&conta=${encodeURIComponent(contaBanco)}&agencia=${encodeURIComponent(agenciaBanco)}`;
       const response = await fetch(url);
       if (!response.ok) {
         alert("Erro.");
@@ -209,7 +209,9 @@ const Finances = ({ setEntradas, atualizarTela }) => {
 
   async function deletaBank() {
     try {
-      const response = await fetch("http://192.168.1.2:3500/bancos/deletar");
+      const response = await fetch(
+        "http://https://prime-barber-dash.onrender.com/bancos/deletar",
+      );
       if (!response.ok) {
         alert("Erro.");
       } else {
@@ -227,7 +229,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
   }
 
   const buscarPaypal = () => {
-    fetch("http://192.168.1.2:3500/paypal")
+    fetch("http://https://prime-barber-dash.onrender.com/paypal")
       .then((resposta) => resposta.json())
       .then((dados) => {
         if (dados && dados.length > 0) {
@@ -239,7 +241,9 @@ const Finances = ({ setEntradas, atualizarTela }) => {
 
   async function deletaPaypal() {
     try {
-      const response = await fetch("http://192.168.1.2:3500/paypal/deletar");
+      const response = await fetch(
+        "http://https://prime-barber-dash.onrender.com/paypal/deletar",
+      );
       if (!response.ok) {
         alert("Erro.");
       } else {
@@ -256,7 +260,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
 
   async function enviaGrana() {
     try {
-      const url = `http://192.168.1.2:3500/dinheiro/adicionar`;
+      const url = `http://https://prime-barber-dash.onrender.com/dinheiro/adicionar`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -280,7 +284,7 @@ const Finances = ({ setEntradas, atualizarTela }) => {
 
   async function retiraGrana() {
     try {
-      const url = `http://192.168.1.2:3500/dinheiro/retirar`;
+      const url = `http://https://prime-barber-dash.onrender.com/dinheiro/retirar`;
       const response = await fetch(url, {
         method: "POST",
         headers: {

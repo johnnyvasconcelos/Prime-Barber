@@ -11,7 +11,7 @@ const Exports = () => {
   });
   */
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/clientes")
+    fetch("http://https://prime-barber-dash.onrender.com/clientes")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setClientes(dados);

@@ -5,7 +5,7 @@ const Clientes = () => {
   const [limite, setLimite] = useState(5);
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3500/")
+    fetch("https://prime-barber-dash.onrender.com/")
       .then((resposta) => resposta.json())
       .then((dados) => {
         setDados(dados);

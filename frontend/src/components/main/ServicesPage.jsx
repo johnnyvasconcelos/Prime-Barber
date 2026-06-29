@@ -9,7 +9,7 @@ const ServicesPage = () => {
   const [editaId, setEditaId] = useState(null);
 
   const carregar = () => {
-    fetch("http://192.168.1.2:3500/servicos")
+    fetch("http://https://prime-barber-dash.onrender.com/servicos")
       .then((resposta) => resposta.json())
       .then((dados2) => {
         setDados(dados2);
@@ -24,8 +24,8 @@ const ServicesPage = () => {
   async function enviar() {
     try {
       const url = editaId
-        ? `http://192.168.1.2:3500/servicos/editar?id=${editaId}&nome=${nome}&preco=${preco}`
-        : `http://192.168.1.2:3500/servicos/item?nome=${nome}&preco=${preco}`;
+        ? `http://https://prime-barber-dash.onrender.com/servicos/editar?id=${editaId}&nome=${nome}&preco=${preco}`
+        : `http://https://prime-barber-dash.onrender.com/servicos/item?nome=${nome}&preco=${preco}`;
 
       const response = await fetch(url);
 
@@ -46,7 +46,7 @@ const ServicesPage = () => {
     if (confirm("Remover o serviço?")) {
       try {
         const response = await fetch(
-          `http://192.168.1.2:3500/servicos/deletar?id=${id}`,
+          `http://https://prime-barber-dash.onrender.com/servicos/deletar?id=${id}`,
         );
         if (response.ok) {
           carregar();
